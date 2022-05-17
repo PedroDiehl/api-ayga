@@ -5,9 +5,10 @@ Candidato: Pedro Henrique Diehl
 '''
 
 
+import json
 from flask import Flask, request
-from flask_restful import Api, abort, Resource, reqparse
 from flask_sqlalchemy import SQLAlchemy
+from flask_restful import Api, abort, Resource, reqparse
 
 app = Flask(__name__)
 api = Api(app)
@@ -21,7 +22,11 @@ class GetSavedData(Resource):
     '''
 
     def get(self):
-        return {"data": "GET"}
+
+        with open("data_json.json", 'r') as f:
+            data = json.load(f)
+
+        return data
 
 class PostData(Resource):
     '''
@@ -32,7 +37,13 @@ class PostData(Resource):
     '''
 
     def post(self):
-        return {"data": "POST"}
+        #print(request)
+        #print(type(request))
+        #print(request.form)
+        with open("data_json.json", "w") as outfile:
+            json.dump(request.form, outfile, indent=4)
+
+        return {"status": "ok"}
 
 
 api.add_resource(GetSavedData, "/get_saved_data")

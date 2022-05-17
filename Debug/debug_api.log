@@ -1,41 +1,182 @@
-05/17/2022 04:08:57 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
-05/17/2022 04:09:31 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
-05/17/2022 04:09:32 PM https://ayga-api.herokuapp.com:443 "GET /debug_test HTTP/1.1" 200 23
-05/17/2022 04:09:32 PM Resposta obtida - Método GET -> Objetivo GET: <Response [200]>
-05/17/2022 04:09:32 PM {'data': 'debug_test'}
+05/17/2022 05:43:17 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:43:18 PM http://127.0.0.1:5000 "GET /get_saved_data HTTP/1.1" 200 49
+05/17/2022 05:43:18 PM Resposta obtida - Método GET -> Objetivo GET: <Response [200]>
+05/17/2022 05:43:18 PM {'teste': 'teste', 'teste2': 'teste2'}
 
-05/17/2022 04:09:32 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
-05/17/2022 04:09:33 PM https://ayga-api.herokuapp.com:443 "GET / HTTP/1.1" 405 64
-05/17/2022 04:09:33 PM Resposta obtida - Método GET -> Objetivo POST: <Response [405]>
-05/17/2022 04:09:33 PM {'message': 'The method is not allowed for the requested URL.'}
+05/17/2022 05:43:18 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:43:18 PM http://127.0.0.1:5000 "GET /post_data HTTP/1.1" 405 70
+05/17/2022 05:43:18 PM Resposta obtida - Método GET -> Objetivo POST: <Response [405]>
+05/17/2022 05:43:18 PM {'message': 'The method is not allowed for the requested URL.'}
 
-05/17/2022 04:09:33 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
-05/17/2022 04:09:33 PM https://ayga-api.herokuapp.com:443 "POST /debug_test HTTP/1.1" 405 64
-05/17/2022 04:09:33 PM Resposta obtida - Método POST -> Objetivo GET: <Response [405]>
-05/17/2022 04:09:33 PM {'message': 'The method is not allowed for the requested URL.'}
+05/17/2022 05:43:18 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:43:18 PM http://127.0.0.1:5000 "POST /get_saved_data HTTP/1.1" 405 70
+05/17/2022 05:43:18 PM Resposta obtida - Método POST -> Objetivo GET: <Response [405]>
+05/17/2022 05:43:18 PM {'message': 'The method is not allowed for the requested URL.'}
 
-05/17/2022 04:09:33 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
-05/17/2022 04:09:34 PM https://ayga-api.herokuapp.com:443 "POST / HTTP/1.1" 200 19
-05/17/2022 04:09:34 PM Resposta obtida - Método POST -> Objetivo POST: <Response [200]>
-05/17/2022 04:09:34 PM {'data': 'posted'}
+05/17/2022 05:43:18 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:43:18 PM http://127.0.0.1:5000 "POST /post_data HTTP/1.1" 200 23
+05/17/2022 05:43:18 PM Resposta obtida - Método POST -> Objetivo POST: <Response [200]>
+05/17/2022 05:43:18 PM {'data': 'POST'}
 
-05/17/2022 05:09:04 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
-05/17/2022 05:09:05 PM https://ayga-api.herokuapp.com:443 "GET /get_saved_data HTTP/1.1" 500 37
-05/17/2022 05:09:05 PM Resposta obtida - Método GET -> Objetivo GET: <Response [500]>
-05/17/2022 05:09:05 PM {'message': 'Internal Server Error'}
+05/17/2022 05:51:10 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:51:10 PM http://127.0.0.1:5000 "GET /get_saved_data HTTP/1.1" 200 49
+05/17/2022 05:51:10 PM Resposta obtida - Método GET -> Objetivo GET: <Response [200]>
+05/17/2022 05:51:10 PM {'teste': 'teste', 'teste2': 'teste2'}
 
-05/17/2022 05:09:05 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
-05/17/2022 05:09:06 PM https://ayga-api.herokuapp.com:443 "GET /post_data HTTP/1.1" 405 64
-05/17/2022 05:09:06 PM Resposta obtida - Método GET -> Objetivo POST: <Response [405]>
-05/17/2022 05:09:06 PM {'message': 'The method is not allowed for the requested URL.'}
+05/17/2022 05:51:10 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:51:10 PM http://127.0.0.1:5000 "GET /post_data HTTP/1.1" 405 70
+05/17/2022 05:51:10 PM Resposta obtida - Método GET -> Objetivo POST: <Response [405]>
+05/17/2022 05:51:10 PM {'message': 'The method is not allowed for the requested URL.'}
 
-05/17/2022 05:09:06 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
-05/17/2022 05:09:06 PM https://ayga-api.herokuapp.com:443 "POST /get_saved_data HTTP/1.1" 405 64
-05/17/2022 05:09:06 PM Resposta obtida - Método POST -> Objetivo GET: <Response [405]>
-05/17/2022 05:09:06 PM {'message': 'The method is not allowed for the requested URL.'}
+05/17/2022 05:51:10 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:51:10 PM http://127.0.0.1:5000 "POST /get_saved_data HTTP/1.1" 405 70
+05/17/2022 05:51:10 PM Resposta obtida - Método POST -> Objetivo GET: <Response [405]>
+05/17/2022 05:51:10 PM {'message': 'The method is not allowed for the requested URL.'}
 
-05/17/2022 05:09:06 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
-05/17/2022 05:09:07 PM https://ayga-api.herokuapp.com:443 "POST /post_data HTTP/1.1" 200 19
-05/17/2022 05:09:07 PM Resposta obtida - Método POST -> Objetivo POST: <Response [200]>
-05/17/2022 05:09:07 PM {'data': 'posted'}
+05/17/2022 05:51:10 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:51:10 PM http://127.0.0.1:5000 "POST /post_data HTTP/1.1" 500 None
+05/17/2022 05:51:10 PM Resposta obtida - Método POST -> Objetivo POST: <Response [500]>
+05/17/2022 05:51:10 PM Erro no .json - Método POST: Expecting value: line 1 column 1 (char 0)
+
+05/17/2022 05:51:29 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:51:29 PM http://127.0.0.1:5000 "GET /get_saved_data HTTP/1.1" 200 49
+05/17/2022 05:51:29 PM Resposta obtida - Método GET -> Objetivo GET: <Response [200]>
+05/17/2022 05:51:29 PM {'teste': 'teste', 'teste2': 'teste2'}
+
+05/17/2022 05:51:29 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:51:29 PM http://127.0.0.1:5000 "GET /post_data HTTP/1.1" 405 70
+05/17/2022 05:51:29 PM Resposta obtida - Método GET -> Objetivo POST: <Response [405]>
+05/17/2022 05:51:29 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 05:51:29 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:51:29 PM http://127.0.0.1:5000 "POST /get_saved_data HTTP/1.1" 405 70
+05/17/2022 05:51:29 PM Resposta obtida - Método POST -> Objetivo GET: <Response [405]>
+05/17/2022 05:51:29 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 05:51:29 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:51:29 PM http://127.0.0.1:5000 "POST /post_data HTTP/1.1" 500 None
+05/17/2022 05:51:29 PM Resposta obtida - Método POST -> Objetivo POST: <Response [500]>
+05/17/2022 05:51:29 PM Erro no .json - Método POST: Expecting value: line 1 column 1 (char 0)
+
+05/17/2022 05:51:51 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:51:51 PM http://127.0.0.1:5000 "GET /get_saved_data HTTP/1.1" 200 49
+05/17/2022 05:51:51 PM Resposta obtida - Método GET -> Objetivo GET: <Response [200]>
+05/17/2022 05:51:51 PM {'teste': 'teste', 'teste2': 'teste2'}
+
+05/17/2022 05:51:51 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:51:51 PM http://127.0.0.1:5000 "GET /post_data HTTP/1.1" 405 70
+05/17/2022 05:51:51 PM Resposta obtida - Método GET -> Objetivo POST: <Response [405]>
+05/17/2022 05:51:51 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 05:51:51 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:51:51 PM http://127.0.0.1:5000 "POST /get_saved_data HTTP/1.1" 405 70
+05/17/2022 05:51:51 PM Resposta obtida - Método POST -> Objetivo GET: <Response [405]>
+05/17/2022 05:51:51 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 05:51:51 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:51:51 PM http://127.0.0.1:5000 "POST /post_data HTTP/1.1" 200 23
+05/17/2022 05:51:51 PM Resposta obtida - Método POST -> Objetivo POST: <Response [200]>
+05/17/2022 05:51:51 PM {'status': 'ok'}
+
+05/17/2022 05:52:13 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:53:25 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:54:03 PM http://127.0.0.1:5000 "GET /get_saved_data HTTP/1.1" 200 49
+05/17/2022 05:54:03 PM Resposta obtida - Método GET -> Objetivo GET: <Response [200]>
+05/17/2022 05:54:03 PM {'teste': 'teste', 'teste2': 'teste2'}
+
+05/17/2022 05:54:03 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:54:03 PM http://127.0.0.1:5000 "GET /post_data HTTP/1.1" 405 70
+05/17/2022 05:54:03 PM Resposta obtida - Método GET -> Objetivo POST: <Response [405]>
+05/17/2022 05:54:03 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 05:54:03 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:54:03 PM http://127.0.0.1:5000 "POST /get_saved_data HTTP/1.1" 405 70
+05/17/2022 05:54:03 PM Resposta obtida - Método POST -> Objetivo GET: <Response [405]>
+05/17/2022 05:54:03 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 05:54:03 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:54:03 PM http://127.0.0.1:5000 "POST /post_data HTTP/1.1" 200 23
+05/17/2022 05:54:03 PM Resposta obtida - Método POST -> Objetivo POST: <Response [200]>
+05/17/2022 05:54:03 PM {'status': 'ok'}
+
+05/17/2022 05:54:17 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:54:17 PM http://127.0.0.1:5000 "GET /get_saved_data HTTP/1.1" 200 49
+05/17/2022 05:54:17 PM Resposta obtida - Método GET -> Objetivo GET: <Response [200]>
+05/17/2022 05:54:17 PM {'teste': 'teste', 'teste2': 'teste2'}
+
+05/17/2022 05:54:17 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:54:17 PM http://127.0.0.1:5000 "GET /post_data HTTP/1.1" 405 70
+05/17/2022 05:54:17 PM Resposta obtida - Método GET -> Objetivo POST: <Response [405]>
+05/17/2022 05:54:17 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 05:54:17 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:54:17 PM http://127.0.0.1:5000 "POST /get_saved_data HTTP/1.1" 405 70
+05/17/2022 05:54:17 PM Resposta obtida - Método POST -> Objetivo GET: <Response [405]>
+05/17/2022 05:54:17 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 05:54:17 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:54:17 PM http://127.0.0.1:5000 "POST /post_data HTTP/1.1" 200 23
+05/17/2022 05:54:17 PM Resposta obtida - Método POST -> Objetivo POST: <Response [200]>
+05/17/2022 05:54:17 PM {'status': 'ok'}
+
+05/17/2022 05:58:03 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:58:03 PM http://127.0.0.1:5000 "GET /get_saved_data HTTP/1.1" 200 49
+05/17/2022 05:58:03 PM Resposta obtida - Método GET -> Objetivo GET: <Response [200]>
+05/17/2022 05:58:03 PM {'teste': 'teste', 'teste2': 'teste2'}
+
+05/17/2022 05:58:03 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:58:03 PM http://127.0.0.1:5000 "GET /post_data HTTP/1.1" 405 70
+05/17/2022 05:58:03 PM Resposta obtida - Método GET -> Objetivo POST: <Response [405]>
+05/17/2022 05:58:03 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 05:58:03 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:58:03 PM http://127.0.0.1:5000 "POST /get_saved_data HTTP/1.1" 405 70
+05/17/2022 05:58:03 PM Resposta obtida - Método POST -> Objetivo GET: <Response [405]>
+05/17/2022 05:58:03 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 05:58:03 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 05:58:03 PM http://127.0.0.1:5000 "POST /post_data HTTP/1.1" 200 23
+05/17/2022 05:58:03 PM Resposta obtida - Método POST -> Objetivo POST: <Response [200]>
+05/17/2022 05:58:03 PM {'status': 'ok'}
+
+05/17/2022 06:00:31 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 06:00:49 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 06:00:49 PM http://127.0.0.1:5000 "GET /get_saved_data HTTP/1.1" 200 49
+05/17/2022 06:00:49 PM Resposta obtida - Método GET -> Objetivo GET: <Response [200]>
+05/17/2022 06:00:49 PM {'teste': 'teste', 'teste2': 'teste2'}
+
+05/17/2022 06:00:49 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 06:00:49 PM http://127.0.0.1:5000 "GET /post_data HTTP/1.1" 405 70
+05/17/2022 06:00:49 PM Resposta obtida - Método GET -> Objetivo POST: <Response [405]>
+05/17/2022 06:00:49 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 06:00:49 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 06:00:49 PM http://127.0.0.1:5000 "POST /get_saved_data HTTP/1.1" 405 70
+05/17/2022 06:00:49 PM Resposta obtida - Método POST -> Objetivo GET: <Response [405]>
+05/17/2022 06:00:49 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 06:00:49 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 06:00:49 PM http://127.0.0.1:5000 "POST /post_data HTTP/1.1" 200 23
+05/17/2022 06:00:49 PM Resposta obtida - Método POST -> Objetivo POST: <Response [200]>
+05/17/2022 06:00:49 PM {'status': 'ok'}
+
+05/17/2022 06:01:54 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 06:01:54 PM http://127.0.0.1:5000 "GET /get_saved_data HTTP/1.1" 200 3
+05/17/2022 06:01:54 PM Resposta obtida - Método GET -> Objetivo GET: <Response [200]>
+05/17/2022 06:01:54 PM {}
+
+05/17/2022 06:01:54 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 06:01:54 PM http://127.0.0.1:5000 "GET /post_data HTTP/1.1" 405 70
+05/17/2022 06:01:54 PM Resposta obtida - Método GET -> Objetivo POST: <Response [405]>
+05/17/2022 06:01:54 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 06:01:54 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 06:01:54 PM http://127.0.0.1:5000 "POST /get_saved_data HTTP/1.1" 405 70
+05/17/2022 06:01:54 PM Resposta obtida - Método POST -> Objetivo GET: <Response [405]>
+05/17/2022 06:01:54 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 06:01:54 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 06:01:54 PM http://127.0.0.1:5000 "POST /post_data HTTP/1.1" 200 23
+05/17/2022 06:01:54 PM Resposta obtida - Método POST -> Objetivo POST: <Response [200]>
+05/17/2022 06:01:54 PM {'status': 'ok'}
 
