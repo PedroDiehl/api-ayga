@@ -1,1 +1,1 @@
-web: gunicorn app:.\bin\app
+web: gunicorn app:app
