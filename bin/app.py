@@ -26,7 +26,7 @@ class GetSavedData(Resource):
         with open("data_json.json", 'r') as f:
             data = json.load(f)
 
-        return data
+        return jsonify(data)
 
 class PostData(Resource):
     '''
@@ -42,15 +42,10 @@ class PostData(Resource):
         #print(request.form)
         dados = request.get_json()
 
-        retorno = {
-                    "status": dados["A"],
-                    "message": dados["B"]
-                }
-
         with open("data_json.json", "w") as outfile:
-            json.dump(retorno, outfile, indent=4)
+            json.dump(dados, outfile, indent=4)
 
-        return jsonify(retorno)
+        return jsonify(dados)
 
 
 api.add_resource(GetSavedData, "/get_saved_data")
