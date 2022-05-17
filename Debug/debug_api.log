@@ -260,3 +260,25 @@
 05/17/2022 06:19:16 PM Resposta obtida - Método POST -> Objetivo POST: <Response [200]>
 05/17/2022 06:19:16 PM {'status': 'ok'}
 
+05/17/2022 06:26:33 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 06:27:18 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 06:27:45 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
+05/17/2022 06:27:46 PM https://ayga-api.herokuapp.com:443 "GET /get_saved_data HTTP/1.1" 500 37
+05/17/2022 06:27:46 PM Resposta obtida - Método GET -> Objetivo GET: <Response [500]>
+05/17/2022 06:27:46 PM {'message': 'Internal Server Error'}
+
+05/17/2022 06:27:46 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
+05/17/2022 06:27:47 PM https://ayga-api.herokuapp.com:443 "GET /post_data HTTP/1.1" 405 64
+05/17/2022 06:27:47 PM Resposta obtida - Método GET -> Objetivo POST: <Response [405]>
+05/17/2022 06:27:47 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 06:27:47 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
+05/17/2022 06:27:48 PM https://ayga-api.herokuapp.com:443 "POST /get_saved_data HTTP/1.1" 405 64
+05/17/2022 06:27:48 PM Resposta obtida - Método POST -> Objetivo GET: <Response [405]>
+05/17/2022 06:27:48 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 06:27:48 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
+05/17/2022 06:27:48 PM https://ayga-api.herokuapp.com:443 "POST /post_data HTTP/1.1" 400 92
+05/17/2022 06:27:48 PM Resposta obtida - Método POST -> Objetivo POST: <Response [400]>
+05/17/2022 06:27:48 PM {'message': 'The browser (or proxy) sent a request that this server could not understand.'}
+
