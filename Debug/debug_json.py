@@ -13,6 +13,7 @@ def json_to_dict(json_file):
     with open(json_file) as f:
         data = json.load(f)
 
+    '''
     print("--------------------\nDADOS CRUS:\n--------------------\n")
     print(f"{data}\n")
 
@@ -41,7 +42,10 @@ def json_to_dict(json_file):
             print(f'{registro}')
             print(f'Data: {registro["date"]}')
             print(f'Valor: {registro["value"]}\n')
+    '''
 
+    sinais = data[0]["signals"]
+    sianl1 = sinais
     return
 
 if __name__ == "__main__":

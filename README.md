@@ -25,8 +25,8 @@ Curso: Engenharia de Controle e Automação
 
 ## 💻 Tecnologias empregadas
 
-Antes de começar, verifique se você atendeu aos seguintes requisitos:
-<!---Estes são apenas requisitos de exemplo. Adicionar, duplicar ou remover conforme necessário--->
+Apresentando as teconlogias utilizadas para desenvolver esse projeto
+
 * Python
   * flask
 * SQLite 3
