@@ -20,8 +20,8 @@ class GetSavedData(Resource):
     Retorna .json
     '''
 
-    def get(self, name):
-        return {"data": name}
+    def get(self):
+        return {"data": "GET"}
 
 class PostData(Resource):
     '''
@@ -32,7 +32,7 @@ class PostData(Resource):
     '''
 
     def post(self):
-        return {"data": "posted"}
+        return {"data": "POST"}
 
 
 api.add_resource(GetSavedData, "/get_saved_data")
