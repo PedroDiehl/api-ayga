@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath bin app.app
+web: gunicorn --pythonpath bin app:app
