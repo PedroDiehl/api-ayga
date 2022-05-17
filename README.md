@@ -8,7 +8,7 @@
 - [💻 Tecnologias empregadas](#-tecnologias-empregadas)
 - [🕐 Linha do Tempo](#-linha-do-tempo)
 - [📐 Próximos passos](#-próximos-passos)
-- [Endpoints HTTP](#endpoints-http)
+- [📥 Endpoints HTTP 📤](#-endpoints-http-)
 
 ## 📍 Introdução
 Desafio de desenvolver uma API REST com prazo de uma semana a partir das documentações e instruções fornecidas pela AYGA.
@@ -52,6 +52,6 @@ Desenvolver filtros para diferentes solicitações do tipo GET
 - Filtro por data ou intervalo de datas
 - Filtro por valor de temperatura ou intervalo de temperaturas
 
-## Endpoints HTTP
+## 📥 Endpoints HTTP 📤
 
-https://ayga-api.herokuapp.com/get_saved_data
+https://ayga-api.herokuapp.com/get_saved_data - Retorna todos os dados armazenados até o momento
