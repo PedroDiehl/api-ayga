@@ -3,6 +3,7 @@ Script Python utilizado para rodar comandos para debugar a API em desenvolviment
 '''
 
 
+from ast import While
 import itertools
 import requests
 import json
@@ -22,7 +23,7 @@ def log_respostas(metodo, objetivo, resposta):
     Função utilizada para fazer o registro do erro em logs
     '''
 
-    print(f"Testando {metodo} -> {objetivo}")
+    print(f"Testando {metodo} -> {objetivo}\n")
 
     logging.info(f"Resposta obtida - Método {metodo} -> Objetivo {objetivo}: {resposta}")
     try:
@@ -37,21 +38,39 @@ def debug_api():
     Função utilizada para reaizar chamadas a API com intuito de debugar os retornos.
     '''
 
-    metodos = ("GET", "POST")
-    objetivos = ("GET", "POST")
+    print("\n-----------------------------\nEscolha o que deseja testar:\n-----------------------------\n")
+    print("1 - GET -> GET")
+    print("2 - GET -> POST")
+    print("3 - POST -> GET")
+    print("4 - POST -> POST")
+    print("Outro - ENCERRAR\n")
 
-    for metodo, objetivo in itertools.product(metodos, objetivos):
-        if metodo == "GET" and objetivo == "GET":
+    while True:
+        escolha = input("Escolha: ")
+
+        if escolha == "1":
             resposta = requests.get(f"{BASE}get_saved_data")
+            metodo = "GET"
+            objetivo = "GET"
 
-        elif metodo == "GET" and objetivo == "POST":
+        elif escolha == "2":
             resposta = requests.get(f"{BASE}post_data")
+            metodo = "GET"
+            objetivo = "POST"
 
-        elif metodo == "POST" and objetivo == "GET":
+        elif escolha == "3":
             resposta = requests.post(f"{BASE}get_saved_data")
+            metodo = "POST"
+            objetivo = "GET"
 
-        elif metodo == "POST" and objetivo == "POST":
+        elif escolha == "4":
             resposta = requests.post(f"{BASE}post_data")
+            metodo = "POST"
+            objetivo = "POST"
+
+        else:
+            print("Encerrando...\n")
+            break
 
         log_respostas(metodo, objetivo, resposta)
 

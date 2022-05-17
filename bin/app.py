@@ -22,6 +22,9 @@ class GetSavedData(Resource):
     '''
 
     def get(self):
+        '''
+        
+        '''
 
         with open("data_json.json", 'r') as f:
             data = json.load(f)
@@ -37,12 +40,13 @@ class PostData(Resource):
     '''
 
     def post(self):
-        #print(request)
-        #print(type(request))
-        #print(request.form)
+        '''
+        
+        '''
+
         dados = request.get_json()
 
-        with open("data_json.json", "w") as outfile:
+        with open("data_json.json", 'w') as outfile:
             json.dump(dados, outfile, indent=4)
 
         return jsonify(dados)
