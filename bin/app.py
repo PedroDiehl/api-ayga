@@ -12,15 +12,24 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 api = Api(app)
 
-class HelloWorld(Resource):
+class TesteGET(Resource):
     '''
-    teste teste teste
+    TESTE GET
     '''
 
     def get(self, name):
         return {"data": name}
 
-api.add_resource(HelloWorld, '/<string:name>')
+class TestePOST(Resource):
+    '''
+    TESTE POST
+    '''
+
+    def post(self):
+        return {"data": "posted"}
+
+api.add_resource(TesteGET, '/<string:name>')
+api.add_resource(TestePOST, "/")
 
 if __name__ == "__main__":
     app.run(debug=False)
