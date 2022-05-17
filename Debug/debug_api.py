@@ -1,5 +1,5 @@
 '''
-
+Script Python utilizado para rodar comandos para debugar a API em desenvolvimento
 '''
 
 
