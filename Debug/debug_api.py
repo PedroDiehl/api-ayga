@@ -2,24 +2,55 @@
 
 '''
 
+
+import itertools
 import requests
+import json
+import logging
+
+logging.basicConfig(filename='debug_api.log', encoding='utf-8', 
+                    format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', 
+                    level=logging.DEBUG
+                    )
 
 BASE = "https://ayga-api.herokuapp.com/"
+
+
+def log_respostas(metodo, objetivo, resposta):
+    '''
+    Função utilizada para fazer o registro do erro
+    '''
+
+    print(f"Testando {metodo} -> {objetivo}")
+
+    logging.info(f"Resposta obtida - Método {metodo} -> Objetivo {objetivo}: {resposta}")
+    try:
+        logging.info(f"{resposta.json()}\n")
+    except json.decoder.JSONDecodeError as err:
+        logging.info(f"Erro no .json - Método {metodo}: {err}\n")
 
 def debug_api():
     '''
     Função utilizada para reaizar chamadas a API com intuito de debugar os retornos.
     '''
 
-    print("\nTestando GET")
-    resposta = requests.get(f"{BASE}pedro")
-    print(resposta)
-    print(resposta.json())
+    metodos = ("GET", "POST")
+    objetivos = ("GET", "POST")
 
-    print("\nTestando POST")
-    resposta = requests.post(f"{BASE}")
-    print(resposta)
-    print(resposta.json())
+    for metodo, objetivo in itertools.product(metodos, objetivos):
+        if metodo == "GET" and objetivo == "GET":
+            resposta = requests.get(f"{BASE}debug_test")
+
+        elif metodo == "GET" and objetivo == "POST":
+            resposta = requests.get(f"{BASE}")
+
+        elif metodo == "POST" and objetivo == "GET":
+            resposta = requests.post(f"{BASE}debug_test")
+
+        elif metodo == "POST" and objetivo == "POST":
+            resposta = requests.post(f"{BASE}")
+
+        log_respostas(metodo, objetivo, resposta)
 
     return
 

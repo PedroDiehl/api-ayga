@@ -1,0 +1,21 @@
+05/17/2022 04:08:57 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
+05/17/2022 04:09:31 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
+05/17/2022 04:09:32 PM https://ayga-api.herokuapp.com:443 "GET /debug_test HTTP/1.1" 200 23
+05/17/2022 04:09:32 PM Resposta obtida - Método GET -> Objetivo GET: <Response [200]>
+05/17/2022 04:09:32 PM {'data': 'debug_test'}
+
+05/17/2022 04:09:32 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
+05/17/2022 04:09:33 PM https://ayga-api.herokuapp.com:443 "GET / HTTP/1.1" 405 64
+05/17/2022 04:09:33 PM Resposta obtida - Método GET -> Objetivo POST: <Response [405]>
+05/17/2022 04:09:33 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 04:09:33 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
+05/17/2022 04:09:33 PM https://ayga-api.herokuapp.com:443 "POST /debug_test HTTP/1.1" 405 64
+05/17/2022 04:09:33 PM Resposta obtida - Método POST -> Objetivo GET: <Response [405]>
+05/17/2022 04:09:33 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 04:09:33 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
+05/17/2022 04:09:34 PM https://ayga-api.herokuapp.com:443 "POST / HTTP/1.1" 200 19
+05/17/2022 04:09:34 PM Resposta obtida - Método POST -> Objetivo POST: <Response [200]>
+05/17/2022 04:09:34 PM {'data': 'posted'}
+
