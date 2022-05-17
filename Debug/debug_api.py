@@ -29,6 +29,8 @@ def log_respostas(metodo, objetivo, resposta):
     except json.decoder.JSONDecodeError as err:
         logging.info(f"Erro no .json - Método {metodo}: {err}\n")
 
+    return
+
 def debug_api():
     '''
     Função utilizada para reaizar chamadas a API com intuito de debugar os retornos.
@@ -39,16 +41,16 @@ def debug_api():
 
     for metodo, objetivo in itertools.product(metodos, objetivos):
         if metodo == "GET" and objetivo == "GET":
-            resposta = requests.get(f"{BASE}debug_test")
+            resposta = requests.get(f"{BASE}get_saved_data")
 
         elif metodo == "GET" and objetivo == "POST":
-            resposta = requests.get(f"{BASE}")
+            resposta = requests.get(f"{BASE}post_data")
 
         elif metodo == "POST" and objetivo == "GET":
-            resposta = requests.post(f"{BASE}debug_test")
+            resposta = requests.post(f"{BASE}get_saved_data")
 
         elif metodo == "POST" and objetivo == "POST":
-            resposta = requests.post(f"{BASE}")
+            resposta = requests.post(f"{BASE}post_data")
 
         log_respostas(metodo, objetivo, resposta)
 

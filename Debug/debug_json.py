@@ -32,5 +32,3 @@ def json_to_dict(json_file):
 
 if __name__ == "__main__":
     json_to_dict("example_json.json")
-
-

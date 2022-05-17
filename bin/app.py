@@ -12,24 +12,31 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 api = Api(app)
 
-class TesteGET(Resource):
+class GetSavedData(Resource):
     '''
-    TESTE GET
+    Utilizada para retornar todos os dados salvos no banco de dados
+    Método GET
+
+    Retorna .json
     '''
 
     def get(self, name):
         return {"data": name}
 
-class TestePOST(Resource):
+class PostData(Resource):
     '''
-    TESTE POST
+    Utilizada para receber os dados do dispositvo e salvar no banco de dados
+    Método: POST
+
+    Não retorna nada
     '''
 
     def post(self):
         return {"data": "posted"}
 
-api.add_resource(TesteGET, '/<string:name>')
-api.add_resource(TestePOST, "/")
+
+api.add_resource(GetSavedData, "/get_saved_data")
+api.add_resource(PostData, "/post_data")
 
 if __name__ == "__main__":
     app.run(debug=False)
