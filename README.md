@@ -1,4 +1,4 @@
-<img src="Ayga Logo.png" alt="isolated" width="500"/>
+<img src="./images/Ayga Logo.png" alt="isolated" width="500"/>
 
 ## 📖 Sumário
 
