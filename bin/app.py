@@ -6,8 +6,8 @@ Candidato: Pedro Henrique Diehl
 
 
 import json
-from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, request, jsonify
 from flask_restful import Api, abort, Resource, reqparse
 
 app = Flask(__name__)
@@ -41,7 +41,7 @@ class PostData(Resource):
         #print(type(request))
         #print(request.form)
         with open("data_json.json", "w") as outfile:
-            json.dump(request.form, outfile, indent=4)
+            json.dump(request.get_json(), outfile, indent=4)
 
         return {"status": "ok"}
 
