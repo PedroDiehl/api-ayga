@@ -1,7 +1,6 @@
 '''
 Script Python onde foi desenvolvida a REST API como parte do
 processo seletivo para developer backend da Ayga IOT.
-
 Candidato: Pedro Henrique Diehl
 '''
 
