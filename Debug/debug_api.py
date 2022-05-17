@@ -18,7 +18,7 @@ BASE = "https://ayga-api.herokuapp.com/"
 
 def log_respostas(metodo, objetivo, resposta):
     '''
-    Função utilizada para fazer o registro do erro
+    Função utilizada para fazer o registro do erro em logs
     '''
 
     print(f"Testando {metodo} -> {objetivo}")
