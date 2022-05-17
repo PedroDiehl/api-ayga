@@ -7,7 +7,7 @@ Candidato: Pedro Henrique Diehl
 
 import json
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, request, jsonify
+from flask import Flask, request
 from flask_restful import Api, abort, Resource, reqparse
 
 app = Flask(__name__)
@@ -40,6 +40,7 @@ class PostData(Resource):
         #print(request)
         #print(type(request))
         #print(request.form)
+        print(request.get_json())
         with open("data_json.json", "w") as outfile:
             json.dump(request.get_json(), outfile, indent=4)
 
@@ -50,4 +51,4 @@ api.add_resource(GetSavedData, "/get_saved_data")
 api.add_resource(PostData, "/post_data")
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)

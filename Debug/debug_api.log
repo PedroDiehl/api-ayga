@@ -200,3 +200,63 @@
 05/17/2022 06:11:08 PM Resposta obtida - Método POST -> Objetivo POST: <Response [200]>
 05/17/2022 06:11:08 PM {'status': 'ok'}
 
+05/17/2022 06:17:32 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
+05/17/2022 06:17:32 PM https://ayga-api.herokuapp.com:443 "GET /get_saved_data HTTP/1.1" 500 37
+05/17/2022 06:17:32 PM Resposta obtida - Método GET -> Objetivo GET: <Response [500]>
+05/17/2022 06:17:32 PM {'message': 'Internal Server Error'}
+
+05/17/2022 06:17:32 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
+05/17/2022 06:17:33 PM https://ayga-api.herokuapp.com:443 "GET /post_data HTTP/1.1" 405 64
+05/17/2022 06:17:33 PM Resposta obtida - Método GET -> Objetivo POST: <Response [405]>
+05/17/2022 06:17:33 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 06:17:33 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
+05/17/2022 06:17:34 PM https://ayga-api.herokuapp.com:443 "POST /get_saved_data HTTP/1.1" 405 64
+05/17/2022 06:17:34 PM Resposta obtida - Método POST -> Objetivo GET: <Response [405]>
+05/17/2022 06:17:34 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 06:17:34 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
+05/17/2022 06:17:34 PM https://ayga-api.herokuapp.com:443 "POST /post_data HTTP/1.1" 400 92
+05/17/2022 06:17:34 PM Resposta obtida - Método POST -> Objetivo POST: <Response [400]>
+05/17/2022 06:17:34 PM {'message': 'The browser (or proxy) sent a request that this server could not understand.'}
+
+05/17/2022 06:18:39 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
+05/17/2022 06:18:40 PM https://ayga-api.herokuapp.com:443 "GET /get_saved_data HTTP/1.1" 500 37
+05/17/2022 06:18:40 PM Resposta obtida - Método GET -> Objetivo GET: <Response [500]>
+05/17/2022 06:18:40 PM {'message': 'Internal Server Error'}
+
+05/17/2022 06:18:40 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
+05/17/2022 06:18:40 PM https://ayga-api.herokuapp.com:443 "GET /post_data HTTP/1.1" 405 64
+05/17/2022 06:18:40 PM Resposta obtida - Método GET -> Objetivo POST: <Response [405]>
+05/17/2022 06:18:40 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 06:18:40 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
+05/17/2022 06:18:41 PM https://ayga-api.herokuapp.com:443 "POST /get_saved_data HTTP/1.1" 405 64
+05/17/2022 06:18:41 PM Resposta obtida - Método POST -> Objetivo GET: <Response [405]>
+05/17/2022 06:18:41 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 06:18:41 PM Starting new HTTPS connection (1): ayga-api.herokuapp.com:443
+05/17/2022 06:18:41 PM https://ayga-api.herokuapp.com:443 "POST /post_data HTTP/1.1" 400 92
+05/17/2022 06:18:41 PM Resposta obtida - Método POST -> Objetivo POST: <Response [400]>
+05/17/2022 06:18:41 PM {'message': 'The browser (or proxy) sent a request that this server could not understand.'}
+
+05/17/2022 06:19:16 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 06:19:16 PM http://127.0.0.1:5000 "GET /get_saved_data HTTP/1.1" 200 3
+05/17/2022 06:19:16 PM Resposta obtida - Método GET -> Objetivo GET: <Response [200]>
+05/17/2022 06:19:16 PM {}
+
+05/17/2022 06:19:16 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 06:19:16 PM http://127.0.0.1:5000 "GET /post_data HTTP/1.1" 405 70
+05/17/2022 06:19:16 PM Resposta obtida - Método GET -> Objetivo POST: <Response [405]>
+05/17/2022 06:19:16 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 06:19:16 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 06:19:16 PM http://127.0.0.1:5000 "POST /get_saved_data HTTP/1.1" 405 70
+05/17/2022 06:19:16 PM Resposta obtida - Método POST -> Objetivo GET: <Response [405]>
+05/17/2022 06:19:16 PM {'message': 'The method is not allowed for the requested URL.'}
+
+05/17/2022 06:19:16 PM Starting new HTTP connection (1): 127.0.0.1:5000
+05/17/2022 06:19:16 PM http://127.0.0.1:5000 "POST /post_data HTTP/1.1" 200 23
+05/17/2022 06:19:16 PM Resposta obtida - Método POST -> Objetivo POST: <Response [200]>
+05/17/2022 06:19:16 PM {'status': 'ok'}
+
