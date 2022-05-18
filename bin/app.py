@@ -91,4 +91,4 @@ api.add_resource(GetSavedData, "/get_saved_data")
 api.add_resource(PostData, "/post_data")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
