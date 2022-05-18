@@ -7,6 +7,7 @@ Candidato: Pedro Henrique Diehl
 
 import os
 import psycopg2
+import datetime as dt
 from flask_restful import Api, Resource
 from flask import Flask, request, jsonify
 
@@ -132,7 +133,8 @@ class GetSavedDataByDate(Resource):
             # Seleciona data e valor onde o tipo é igual ao tipo atual
             # Try block for curs.execute() psycopg2 error
             try:
-                curs.execute("SELECT date, value FROM signals WHERE type = %s AND date BETWEEN %s AND (%s + 1)", (tipo, data_busca, data_busca))
+                curs.execute("SELECT date, value FROM signals WHERE type = %s AND date BETWEEN %s AND %s", 
+                            (tipo, data_busca, dt.datetime.strptime(data_busca, "%Y-%m-%d") +  dt.timedelta(days=1)))
             except psycopg2.errors.InvalidDatetimeFormat as invalid_dt_error:
                 return jsonify({"error": "Formato de data inválido, correto: YYYY-MM-DDTHH:MM:SSZ"})
 

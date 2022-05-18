@@ -8,6 +8,7 @@ import json
 import psycopg2
 from flask import jsonify
 from dotenv import load_dotenv
+import datetime as dt
 
 load_dotenv()
 
@@ -162,7 +163,7 @@ def menu_debugdb():
             print("Flitro com Where executado com sucesso!\n")
 
         elif escolha == "10":
-            curs.execute("SELECT date, value FROM signals WHERE type = %s AND date BETWEEN %s AND %s", ("extTemperature1", "2022-05-17", "2022-05-18"))
+            curs.execute("SELECT date, value FROM signals WHERE type = %s AND date BETWEEN %s AND %s", ("extTemperature1", "2022-05-17", dt.datetime.strptime("2022-05-17", "%Y-%m-%d") +  dt.timedelta(days=1)))
             print(f"{curs.fetchall()}\n")
             print("Debug Date executado com sucesso!\n")
         else:
