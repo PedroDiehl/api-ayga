@@ -110,6 +110,41 @@ class GetSavedDataByType(Resource):
         else:
             return jsonify({"error": "Tipo de sinal não encontrado"})
 
+class GetSavedDataByDate(Resource):
+    '''
+    Utilizada para retornar os dados salvos no banco de dados com filtros
+    Método GET
+
+    Recebe como argumento a data para retornar a coleta dos sinais
+    Retorna .json
+    '''
+
+    def get(self, data_busca):
+
+        if conn := connect_db():
+            curs = conn.cursor()
+        else:
+            return jsonify({"error": "Não foi possível conectar ao banco de dados"})
+
+        signals = []
+        for tipo in selecionar_tipos(curs):
+
+            # Seleciona data e valor onde o tipo é igual ao tipo atual
+            # Try block for curs.execute() psycopg2 error
+            curs.execute("SELECT date, value FROM signals WHERE type = %s AND date = %s", (tipo, data_busca))
+            data = curs.fetchall()
+
+            # Cria a lista de logs através de list compreenshion
+            logs = [{"date": date, "value": value} for date, value in data]
+
+            # Cria o dicionário de tipo de sinal e registros
+            formato_json_sinais = {"UUID": tipo, "logs": logs}
+
+            # Cria a lista de dicionários de tipo de sinal e registros
+            signals.append(formato_json_sinais)
+
+        return jsonify(create_json(formato_json_sinais))
+
 class GetSavedDataByDateInterval(Resource):
     '''
     Utilizada para retornar os dados salvos no banco de dados com filtros
@@ -190,7 +225,9 @@ class PostData(Resource):
 api.add_resource(PostData, "/post_data")
 api.add_resource(GetSavedData, "/get_saved_data")
 api.add_resource(GetSavedDataByType, "/get_saved_data_by_type/<string:tipo>")
+api.add_resource(GetSavedDataByDate, "/get_saved_data_by_date/<string:data_busca>")
 api.add_resource(GetSavedDataByDateInterval, "/get_saved_data_by_date_interval/<string:tipo>/<string:data_inicio>/<string:data_fim>")
+
 
 if __name__ == "__main__":
     app.run(debug=False)

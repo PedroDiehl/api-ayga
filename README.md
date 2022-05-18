@@ -41,7 +41,7 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [x] Interpretar formato .json enviado através do POST e documentação fornecida
 - [x] Configurar Base de dados no Postgres integrado com Heroku
 - [x] Integrar todas tecnlogias desenvolvidas
-- [ ] Desenvolver filtros para requisições tipo GET
+- [x] Desenvolver filtros para requisições tipo GET
 - [ ] Ajustes finais
 - [ ] Deploy final no Heroku
 
