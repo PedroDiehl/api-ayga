@@ -74,6 +74,7 @@ class GetSavedDataByType(Resource):
     Utilizada para retornar os dados salvos no banco de dados com filtros
     Método GET
 
+    Recebe como argumento o tipo do sinal que terá seus dados retornados
     Retorna .json
     '''
 
