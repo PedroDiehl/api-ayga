@@ -19,12 +19,7 @@ def connect_db():
     Função para conectar ao banco de dados.
     '''
 
-    print(os.environ.get('DATABASE_URL'))
-    #try:
-        #return psycopg2.connect(os.environ.get('DATABASE_URL'))
-    #except Exception as e:
-        #print(e)
-    return
+    return psycopg2.connect(os.environ.get('DATABASE_URL'))
 
 class GetSavedData(Resource):
     '''
@@ -36,7 +31,7 @@ class GetSavedData(Resource):
 
     def get(self):
 
-        conn = psycopg2.connect(os.getenv("HEROKU_DB_URL"))
+        conn = connect_db()
         curs = conn.cursor()
 
         curs.execute("SELECT DISTINCT type FROM signals")
@@ -75,7 +70,7 @@ class PostData(Resource):
 
     def post(self):
 
-        conn = psycopg2.connect(os.getenv("HEROKU_DB_URL"))
+        conn = connect_db()
         curs = conn.cursor()
 
         # Recebe os dados e faz a leitura
@@ -101,5 +96,4 @@ api.add_resource(GetSavedData, "/get_saved_data")
 api.add_resource(PostData, "/post_data")
 
 if __name__ == "__main__":
-    connect_db()
     app.run(debug=False)
