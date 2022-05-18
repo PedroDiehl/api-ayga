@@ -2,6 +2,7 @@
 Módulo utilizado para debugar o banco de dados e suas querys
 '''
 
+from datetime import date
 import json
 import sqlite3
 
@@ -28,10 +29,7 @@ def create_db():
                 value TEXT)'''
                 )
 
-    print("Banco de dados criado com sucesso!\n")
-
     return
-
 
 def test_insert():
     '''
@@ -53,7 +51,37 @@ def test_insert():
 
             curs.execute("INSERT INTO signals (date, type, value) VALUES (?, ?, ?)", (data, tipo, valor))
 
-    print("Dados inseridos com sucesso!\n")
+    return
+
+def test_json_data():
+    '''
+    Teste para serealizar os dados para retornar no .json
+    '''
+
+    # Seleciona os tipos de sinais
+    tipos = curs.execute("SELECT DISTINCT type FROM signals").fetchall()
+
+    signals = []
+    for tipo in tipos:
+        #print(tipo[0])
+
+        # Seleciona data e valor onde o tipo é igual ao tipo atual
+        data = curs.execute("SELECT date, value FROM signals WHERE type = :tipo", {"tipo": tipo[0]}).fetchall()
+
+        logs = [{"date": date, "value": value} for date, value in data]
+
+        formato_json = {"UUID": tipo[0], 
+                        "logs": logs
+                        }
+
+        signals.append(formato_json)
+
+    #print(signals)
+
+    format_json = {"deviceUUID": "00000B66",
+                    "signals": signals}
+
+    print(format_json)
 
     return
 
@@ -68,6 +96,8 @@ def menu_debugdb():
     print("3 - Testar busca geral")
     print("4 - Limpar tabela")
     print("5 - Testar busca por tipo de sinal")
+    print("6 - Testar busca por data")
+    print("7 - Testar formatar .json")
     print("Outro - ENCERRAR\n")
 
     while True:
@@ -75,8 +105,12 @@ def menu_debugdb():
 
         if escolha == "1":
             create_db()
+            print("Banco de dados criado com sucesso!\n")
+
         elif escolha == "2":
             test_insert()
+            print("Dados inseridos com sucesso!\n")
+
         elif escolha == "3":
             print(f'{curs.execute("SELECT * FROM signals").fetchall()}\n')
             print("Busca geral realizada com sucesso!\n")
@@ -88,6 +122,14 @@ def menu_debugdb():
         elif escolha == "5":
             print(f"{curs.execute('SELECT DISTINCT type FROM signals ORDER BY type').fetchall()}\n")
             print("Busca por tipo realizada com sucesso!\n")
+
+        elif escolha == "6":
+            print(f"{curs.execute('SELECT DISTINCT date FROM signals ORDER BY date').fetchall()}\n")
+            print("Busca por data realizada com sucesso!\n")
+
+        elif escolha == "7":
+            test_json_data()
+            print("Teste de .json realizado com sucesso!\n")
 
         else:
             print("Encerrando...\n")
