@@ -37,6 +37,13 @@ def selecionar_tipos(curs):
 
     return tuple(tipo[0] for tipo in tipos)
 
+def create_json(signals):
+    '''
+    Função para criar o json a ser retornado
+    '''
+
+    return {"deviceUUID": "00000B66", "signals": signals}
+
 class GetSavedData(Resource):
     '''
     Utilizada para retornar todos os dados salvos no banco de dados
@@ -69,11 +76,7 @@ class GetSavedData(Resource):
             # Cria a lista de dicionários de tipo de sinal e registros
             signals.append(formato_json_sinais)
 
-        # Cria o dicionário de dados do dispositivo
-        formato_json = {"deviceUUID": "00000B66",
-                        "signals": signals}
-
-        return jsonify(formato_json)
+        return jsonify(create_json(signals))
 
 class GetSavedDataByType(Resource):
     '''
@@ -102,11 +105,7 @@ class GetSavedDataByType(Resource):
             # Cria o dicionário de tipo de sinal e registros
             formato_json_sinais = {"UUID": tipo, "logs": logs}
 
-            # Cria o dicionário de dados do dispositivo
-            formato_json = {"deviceUUID": "00000B66",
-                            "signals": [formato_json_sinais]}
-
-            return jsonify(formato_json)
+            return jsonify(create_json([formato_json_sinais]))
 
         else:
             return jsonify({"error": "Tipo de sinal não encontrado"})
@@ -142,7 +141,7 @@ class GetSavedDataByDateInterval(Resource):
             # Cria o dicionário de tipo de sinal e registros
             formato_json_sinais = {"UUID": tipo, "logs": logs}
 
-            return jsonify(formato_json_sinais)
+            return jsonify(create_json([formato_json_sinais]))
 
         else:
             return jsonify({"error": "Tipo de sinal não encontrado"})
