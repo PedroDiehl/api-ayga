@@ -50,11 +50,11 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 Diferentes filtros para o método GET
 
 - Filtro por data - ✔️
+- Filtro por valor - ❌
 - Filtro por intervalo de datas - ✔️
-- Filtro por valor de temperatura - ❌
+- Filtro por intervalo de valor - ❌
 - Filtro por tipo do sinal do dispositivo - ✔️
 - Filtro por tipo do sinal e intervalo de datas - ✔️
-- Filtro por intervalo de valor de temperaturas - ❌
 
 ### ▶️ Legenda
 ✔️ - Disponível
@@ -71,5 +71,5 @@ Diferentes filtros para o método GET
 * https://ayga-api.herokuapp.com/get_saved_data_by_date/data_busca
   * Retorna os dados armazenados até o momento para data enviada como argumento
 
-* https://ayga-api.herokuapp.com/get_saved_data_by_date_interval/tipo/data_inicial/data_final
+* https://ayga-api.herokuapp.com/get_saved_data_by_type_date_interval/tipo/data_inicial/data_final
   * Retorna os dados armazenados até o momento para o tipo e intervalo de datas enviado como argumento
