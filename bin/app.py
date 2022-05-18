@@ -19,7 +19,13 @@ def connect_db():
     Função para conectar ao banco de dados.
     '''
 
-    return psycopg2.connect(os.environ.get('DATABASE_URL'))
+    try:
+        conn = psycopg2.connect(os.environ.get('DATABASE_URL'))
+
+    except psycopg2.OperationalError as conn_error:
+        conn = None
+
+    return conn
 
 class GetSavedData(Resource):
     '''
@@ -31,8 +37,10 @@ class GetSavedData(Resource):
 
     def get(self):
 
-        conn = connect_db()
-        curs = conn.cursor()
+        if conn := connect_db():
+            curs = conn.cursor()
+        else:
+            return jsonify({"error": "Não foi possível conectar ao banco de dados"})
 
         curs.execute("SELECT DISTINCT type FROM signals")
         tipos = curs.fetchall()
@@ -41,6 +49,7 @@ class GetSavedData(Resource):
         for tipo in tipos:
 
             # Seleciona data e valor onde o tipo é igual ao tipo atual
+            # Try block for curs.execute() psycopg2 error
             curs.execute("SELECT date, value FROM signals WHERE type = %s", (tipo[0],))
             data = curs.fetchall()
 
@@ -70,26 +79,35 @@ class PostData(Resource):
 
     def post(self):
 
-        conn = connect_db()
-        curs = conn.cursor()
+        if conn := connect_db():
+            curs = conn.cursor()
+        else:
+            return jsonify({"error": "Não foi possível conectar ao banco de dados"})
 
         # Recebe os dados e faz a leitura
         dados = request.get_json()
-        sinais = dados[0]["signals"]
+        
+        # Save any error to except err 
+        try:
+            for dado in dados:
+                sinais = dado["signals"]
 
-        # Filtra os dados e faz a inserção no banco de dados
-        for sinal in sinais:
-            tipo = sinal["UUID"]
+                # Filtra os dados e faz a inserção no banco de dados
+                for sinal in sinais:
+                    tipo = sinal["UUID"]
 
-            for registro in sinal["logs"]:
-                data = registro["date"]
-                valor = registro["value"]
+                    for registro in sinal["logs"]:
+                        data = registro["date"]
+                        valor = registro["value"]
 
-                # Inserção no banco de dados
-                curs.execute("INSERT INTO signals (date, type, value) VALUES (%s, %s, %s)", (data, tipo, valor))
-                conn.commit()
+                        # Inserção no banco de dados
+                        curs.execute("INSERT INTO signals (date, type, value) VALUES (%s, %s, %s)", (data, tipo, valor))
+                        conn.commit()
 
-        return jsonify({"status": "ok"})
+        except Exception as post_error:
+            return jsonify({"status": "error", "message": "Falha na solicitação."})
+
+        return jsonify({"status": "ok", "message": "Dados salvos com sucesso!"})
 
 # Adiciona os recursos a API
 api.add_resource(GetSavedData, "/get_saved_data")
