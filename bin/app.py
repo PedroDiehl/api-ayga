@@ -13,9 +13,6 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 api = Api(app)
 
-conn = sqlite3.connect("B66db.db", check_same_thread=False)
-curs = conn.cursor()
-
 class GetSavedData(Resource):
     '''
     Utilizada para retornar todos os dados salvos no banco de dados
@@ -26,27 +23,30 @@ class GetSavedData(Resource):
 
     def get(self):
 
-        tipos = curs.execute("SELECT DISTINCT type FROM signals").fetchall()
+        with sqlite3.connect("B66db.db", check_same_thread=False) as conn:
+            curs = conn.cursor()
 
-        signals = []
-        for tipo in tipos:
+            tipos = curs.execute("SELECT DISTINCT type FROM signals").fetchall()
 
-            # Seleciona data e valor onde o tipo é igual ao tipo atual
-            data = curs.execute("SELECT date, value FROM signals WHERE type = :tipo", {"tipo": tipo[0]}).fetchall()
+            signals = []
+            for tipo in tipos:
 
-            # Cria a lista de logs através de list compreenshion
-            logs = [{"date": date, "value": value} for date, value in data]
+                # Seleciona data e valor onde o tipo é igual ao tipo atual
+                data = curs.execute("SELECT date, value FROM signals WHERE type = :tipo", {"tipo": tipo[0]}).fetchall()
 
-            # Cria o dicionário de tipo de sinal e registros
-            formato_json_sinais = {"UUID": tipo[0], 
-                                    "logs": logs}
+                # Cria a lista de logs através de list compreenshion
+                logs = [{"date": date, "value": value} for date, value in data]
 
-            # Cria a lista de dicionários de tipo de sinal e registros
-            signals.append(formato_json_sinais)
+                # Cria o dicionário de tipo de sinal e registros
+                formato_json_sinais = {"UUID": tipo[0], 
+                                        "logs": logs}
 
-        # Cria o dicionário de dados do dispositivo
-        formato_json = {"deviceUUID": "00000B66",
-                        "signals": signals}
+                # Cria a lista de dicionários de tipo de sinal e registros
+                signals.append(formato_json_sinais)
+
+            # Cria o dicionário de dados do dispositivo
+            formato_json = {"deviceUUID": "00000B66",
+                            "signals": signals}
 
         return jsonify(formato_json)
 
@@ -60,21 +60,24 @@ class PostData(Resource):
 
     def post(self):
 
-        # Recebe os dados e faz a leitura
-        dados = json.load(open(request.get_json()))
-        sinais = dados["signals"]
+        with sqlite3.connect("B66db.db", check_same_thread=False) as conn:
+            curs = conn.cursor()
+            
+            # Recebe os dados e faz a leitura
+            dados = json.load(open(request.get_json()))
+            sinais = dados["signals"]
 
-        # Filtra os dados e faz a inserção no banco de dados
-        for sinal in sinais:
-            tipo = sinal["UUID"]
+            # Filtra os dados e faz a inserção no banco de dados
+            for sinal in sinais:
+                tipo = sinal["UUID"]
 
-            for registro in sinal["logs"]:
-                data = registro["date"]
-                valor = registro["value"]
+                for registro in sinal["logs"]:
+                    data = registro["date"]
+                    valor = registro["value"]
 
-                # Inserção no banco de dados
-                curs.execute("INSERT INTO signals (date, type, value) VALUES (?, ?, ?)", (data, tipo, valor))
-                curs.commit()
+                    # Inserção no banco de dados
+                    curs.execute("INSERT INTO signals (date, type, value) VALUES (?, ?, ?)", (data, tipo, valor))
+                    curs.commit()
 
         return jsonify({"status": "ok"})
 
