@@ -5,13 +5,15 @@ Módulo utilizado para debugar o banco de dados e suas querys
 import json
 import sqlite3
 
-def create_db(db_file):
+JSON_FILE = "example_json.json"
+DB_FILE = "B66db.sqlite"
+conn = sqlite3.connect(DB_FILE)
+c = conn.cursor()
+
+def create_db():
     '''
     Função para criar o banco de dados
     '''
-
-    conn = sqlite3.connect(db_file)
-    c = conn.cursor()
 
     # Create a table named signals with 4 columns
     # Column 1: ID
@@ -26,12 +28,27 @@ def create_db(db_file):
 
     return
 
-def debug_db(json_file):
+
+def test_insert():
+    '''
+    
+    '''
+
+    return
+
+def search_query():
+    '''
+    
+    '''
+
+    return
+
+def debug_db():
     '''
     Função para administrar os comandos no banco de dados em debug
     '''
 
-    with open(json_file) as f:
+    with open(JSON_FILE) as f:
         data = json.load(f)
 
     sinais = data[0]["signals"]
@@ -60,17 +77,24 @@ def menu_debugdb():
     print("\n-----------------------------\nEscolha o que deseja testar:\n-----------------------------\n")
     print("1 - Criar Banco de Dados")
     print("2 - Acessar debug")
+    print("3 - Testar inserção")
+    print("4 - Rodar Query")
     print("Outro - ENCERRAR\n")
 
     while True:
         escolha = input("Escolha: ")
 
         if escolha == "1":
-            db_file = "B66db.sqlite"
-            create_db(db_file)
+            create_db()
 
         elif escolha == "2":
-            debug_db("example_json.json")
+            debug_db()
+
+        elif escolha == "3":
+            test_insert()
+
+        elif escolha == "4":
+            search_query()
 
         else:
             print("Encerrando...\n")
