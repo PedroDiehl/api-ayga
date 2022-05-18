@@ -3,13 +3,16 @@ Módulo utilizado para debugar o banco de dados e suas querys
 '''
 
 
+import os
 import json
-import sqlite3
+import psycopg2
 from flask import jsonify
+from dotenv import load_dotenv
+
+load_dotenv()
 
 JSON_FILE = "example_json.json"
-DB_FILE = "debug_B66db.db"
-conn = sqlite3.connect(DB_FILE)
+conn = psycopg2.connect(os.getenv("HEROKU_DB_URL"))
 curs = conn.cursor()
 
 def create_db():
@@ -23,11 +26,11 @@ def create_db():
     # Column 3: type
     # Column 4: value
 
-    curs.execute('''CREATE TABLE signals 
-                (id INTEGER PRIMARY KEY, 
-                date TIMESTAMP, 
-                type TEXT, 
-                value TEXT)'''
+    curs.execute('''CREATE TABLE signals (
+                    id serial PRIMARY KEY,
+                    date TIMESTAMP,
+                    type VARCHAR ( 50 ),
+                    value INTEGER);'''
                 )
 
     return
@@ -50,7 +53,7 @@ def test_insert():
             data = registro["date"]
             valor = registro["value"]
 
-            curs.execute("INSERT INTO signals (date, type, value) VALUES (?, ?, ?)", (data, tipo, valor))
+            curs.execute("INSERT INTO signals (date, type, value) VALUES (%s, %s, %s)", (data, tipo, valor))
 
     return
 
@@ -67,7 +70,7 @@ def test_json_data():
         #print(tipo[0])
 
         # Seleciona data e valor onde o tipo é igual ao tipo atual
-        data = curs.execute("SELECT date, value FROM signals WHERE type = :tipo", {"tipo": tipo[0]}).fetchall()
+        data = curs.execute("SELECT date, value FROM signals WHERE type = %s", ).fetchall()
 
         logs = [{"date": date, "value": value} for date, value in data]
 
@@ -88,6 +91,15 @@ def test_json_data():
 
     return
 
+def delete_table():
+    '''
+    Função para excluir a tabela
+    '''
+
+    curs.execute("DROP TABLE signals")
+
+    return
+
 def menu_debugdb():
     '''
     Menu de terminal para escolher qual operação realizar
@@ -101,6 +113,8 @@ def menu_debugdb():
     print("5 - Testar busca por tipo de sinal")
     print("6 - Testar busca por data")
     print("7 - Testar formatar .json")
+    print("8 - Deletar tabela")
+    print("9 - Filtro com Where")
     print("Outro - ENCERRAR\n")
 
     while True:
@@ -115,7 +129,8 @@ def menu_debugdb():
             print("Dados inseridos com sucesso!\n")
 
         elif escolha == "3":
-            print(f'{curs.execute("SELECT * FROM signals").fetchall()}\n')
+            curs.execute("SELECT * FROM signals;")
+            print(f'{curs.fetchall()}\n')
             print("Busca geral realizada com sucesso!\n")
 
         elif escolha == "4":
@@ -123,16 +138,27 @@ def menu_debugdb():
             print("Tabela limpa com sucesso!\n")
 
         elif escolha == "5":
-            print(f"{curs.execute('SELECT DISTINCT type FROM signals ORDER BY type').fetchall()}\n")
+            curs.execute('SELECT DISTINCT type FROM signals ORDER BY type')
+            print(f"{curs.fetchall()}\n")
             print("Busca por tipo realizada com sucesso!\n")
 
         elif escolha == "6":
-            print(f"{curs.execute('SELECT DISTINCT date FROM signals ORDER BY date').fetchall()}\n")
+            curs.execute('SELECT DISTINCT date FROM signals ORDER BY date')
+            print(f"{curs.fetchall()}\n")
             print("Busca por data realizada com sucesso!\n")
 
         elif escolha == "7":
             test_json_data()
             print("Teste de .json realizado com sucesso!\n")
+
+        elif escolha == "8":
+            delete_table()
+            print("Tabela deletada com sucesso!\n")
+
+        elif escolha == "9":
+            curs.execute('SELECT * FROM signals WHERE type = %s', ("extTemperature1",))
+            print(f"{curs.fetchall()}\n")
+            print("Flitro com Where executado com sucesso!\n")
 
         else:
             print("Encerrando...\n")

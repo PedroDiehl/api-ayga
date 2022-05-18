@@ -5,32 +5,19 @@ Candidato: Pedro Henrique Diehl
 '''
 
 
-import json
-import sqlite3
+import os
+import psycopg2
+from dotenv import load_dotenv
 from flask_restful import Api, Resource
 from flask import Flask, request, jsonify
+
+load_dotenv()
 
 app = Flask(__name__)
 api = Api(app)
 
-def create_table():
-    '''
-    Usado para criar a tabela quando exportar para o Heroku
-    '''
-
-    with sqlite3.connect("B66db.db") as conn:
-        curs = conn.cursor()
-
-        curs.execute('''CREATE TABLE signals 
-                    (id INTEGER PRIMARY KEY, 
-                    date TIMESTAMP, 
-                    type TEXT, 
-                    value TEXT)'''
-                    )
-
-        curs.commit()
-
-    return
+conn = psycopg2.connect(os.getenv("HEROKU_DB_URL"))
+curs = conn.cursor()
 
 class GetSavedData(Resource):
     '''
@@ -42,30 +29,30 @@ class GetSavedData(Resource):
 
     def get(self):
 
-        with sqlite3.connect("B66db.db") as conn:
-            curs = conn.cursor()
+        curs = conn.cursor()
 
-            tipos = curs.execute("SELECT DISTINCT type FROM signals").fetchall()
+        curs.execute("SELECT DISTINCT type FROM signals")
+        tipos = curs.fetchall()
 
-            signals = []
-            for tipo in tipos:
+        signals = []
+        for tipo in tipos:
 
-                # Seleciona data e valor onde o tipo é igual ao tipo atual
-                data = curs.execute("SELECT date, value FROM signals WHERE type = :tipo", {"tipo": tipo[0]}).fetchall()
+            # Seleciona data e valor onde o tipo é igual ao tipo atual
+            data = curs.execute("SELECT date, value FROM signals WHERE type = %s", (tipo[0],)).fetchall()
 
-                # Cria a lista de logs através de list compreenshion
-                logs = [{"date": date, "value": value} for date, value in data]
+            # Cria a lista de logs através de list compreenshion
+            logs = [{"date": date, "value": value} for date, value in data]
 
-                # Cria o dicionário de tipo de sinal e registros
-                formato_json_sinais = {"UUID": tipo[0], 
-                                        "logs": logs}
+            # Cria o dicionário de tipo de sinal e registros
+            formato_json_sinais = {"UUID": tipo[0], 
+                                    "logs": logs}
 
-                # Cria a lista de dicionários de tipo de sinal e registros
-                signals.append(formato_json_sinais)
+            # Cria a lista de dicionários de tipo de sinal e registros
+            signals.append(formato_json_sinais)
 
-            # Cria o dicionário de dados do dispositivo
-            formato_json = {"deviceUUID": "00000B66",
-                            "signals": signals}
+        # Cria o dicionário de dados do dispositivo
+        formato_json = {"deviceUUID": "00000B66",
+                        "signals": signals}
 
         return jsonify(formato_json)
 
@@ -79,24 +66,23 @@ class PostData(Resource):
 
     def post(self):
 
-        with sqlite3.connect("B66db.db") as conn:
-            curs = conn.cursor()
+        curs = conn.cursor()
 
-            # Recebe os dados e faz a leitura
-            dados = request.get_json()
-            sinais = dados[0]["signals"]
+        # Recebe os dados e faz a leitura
+        dados = request.get_json()
+        sinais = dados[0]["signals"]
 
-            # Filtra os dados e faz a inserção no banco de dados
-            for sinal in sinais:
-                tipo = sinal["UUID"]
+        # Filtra os dados e faz a inserção no banco de dados
+        for sinal in sinais:
+            tipo = sinal["UUID"]
 
-                for registro in sinal["logs"]:
-                    data = registro["date"]
-                    valor = registro["value"]
+            for registro in sinal["logs"]:
+                data = registro["date"]
+                valor = registro["value"]
 
-                    # Inserção no banco de dados
-                    curs.execute("INSERT INTO signals (date, type, value) VALUES (?, ?, ?)", (data, tipo, valor))
-                    curs.commit()
+                # Inserção no banco de dados
+                curs.execute("INSERT INTO signals (date, type, value) VALUES (?, ?, ?)", (data, tipo, valor))
+                curs.commit()
 
         return jsonify({"status": "ok"})
 
@@ -105,5 +91,4 @@ api.add_resource(GetSavedData, "/get_saved_data")
 api.add_resource(PostData, "/post_data")
 
 if __name__ == "__main__":
-    create_table()
-    app.run(debug=False)
+    app.run(debug=True)
