@@ -88,11 +88,50 @@ class GetSavedDataByType(Resource):
         curs.execute("SELECT DISTINCT type FROM signals")
         tipos = curs.fetchall()
 
-        tipos_filtrados = [tipo[0] for tipo in tipos]
+        tipos_filtrados = tuple(tipo[0] for tipo in tipos)
 
         if tipo in tipos_filtrados:
             # Seleciona data e valor onde o tipo é igual ao tipo atual
             curs.execute("SELECT date, value FROM signals WHERE type = %s", (tipo,))
+            data = curs.fetchall()
+
+            # Cria a lista de logs através de list compreenshion
+            logs = [{"date": date, "value": value} for date, value in data]
+
+            # Cria o dicionário de tipo de sinal e registros
+            formato_json_sinais = {"UUID": tipo, 
+                                    "logs": logs}
+
+            return jsonify(formato_json_sinais)
+
+        else:
+            return jsonify({"error": "Tipo de sinal não encontrado"})
+
+class GetSavedDataByDateInterval(Resource):
+    '''
+    Utilizada para retornar os dados salvos no banco de dados com filtros
+    Método GET
+
+    Recebe como argumentos o tipo do sinal e o intervalo de datas
+    Retorna .json
+    '''
+
+    def get(self, tipo, data_inicio, data_fim):
+
+        if conn := connect_db():
+            curs = conn.cursor()
+        else:
+            return jsonify({"error": "Não foi possível conectar ao banco de dados"})
+
+        curs.execute("SELECT DISTINCT type FROM signals")
+        tipos = curs.fetchall()
+
+        tipos_filtrados = tuple(tipo[0] for tipo in tipos)
+
+        if tipo in tipos_filtrados:
+            # Seleciona data e valor onde o tipo é igual ao tipo atual
+            # Try block for curs.execute() psycopg2 error
+            curs.execute("SELECT date, value FROM signals WHERE type = %s AND date BETWEEN %s AND %s", (tipo, data_inicio, data_fim))
             data = curs.fetchall()
 
             # Cria a lista de logs através de list compreenshion
@@ -151,6 +190,7 @@ class PostData(Resource):
 api.add_resource(PostData, "/post_data")
 api.add_resource(GetSavedData, "/get_saved_data")
 api.add_resource(GetSavedDataByType, "/get_saved_data_by_type/<string:tipo>")
+api.add_resource(GetSavedDataByDateInterval, "/get_saved_data_by_date_interval/<string:tipo>/<string:data_inicio>/<string:data_fim>")
 
 if __name__ == "__main__":
     app.run(debug=False)
