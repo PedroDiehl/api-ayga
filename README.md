@@ -43,8 +43,8 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [x] Configurar Base de dados no Postgres integrado com Heroku
 - [x] Integrar todas tecnlogias desenvolvidas
 - [x] Desenvolver filtros para requisições tipo GET
-- [ ] Ajustes finais
-- [ ] Deploy final no Heroku
+- [x] Ajustes finais
+- [x] Deploy final no Heroku
 
 ## 📐 Desenvolvidos
 Diferentes filtros para o método GET
