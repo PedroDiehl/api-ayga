@@ -57,7 +57,6 @@ Diferentes filtros para o método GET
 - Filtro por intervalo de valores - ✔️
 - Filtro por tipo do sinal do dispositivo - ✔️
 - Filtro por tipo do sinal e intervalo de datas - ✔️
-- Filtro por tipo do sinal e intervalo de valores - ❌
 
 ### ▶️ Legenda
 ✔️ - Disponível
@@ -70,21 +69,32 @@ Diferentes filtros para o método GET
 
 * https://ayga-api.herokuapp.com/get_saved_data_by_date/data_busca
   * Retorna os dados armazenados até o momento para data enviada como argumento
+  * data_busca: YYYY-MM-DD
 
 * https://ayga-api.herokuapp.com/get_saved_data_by_type/tipo
   * Retorna os dados armazenados até o momento para o tipo enviado como argumento
+  * tipo: nome do sinal
 
 * https://ayga-api.herokuapp.com/get_saved_data_by_evalue/valor
   * Retorna os dados armazenados até o momento para o valor igual ao enviado como argumento
+  * valor: inteiro
 
 * https://ayga-api.herokuapp.com/get_saved_data_by_lvalue/valor
   * Retorna os dados armazenados até o momento para valores inferiores ao enviado como argumento
+  * valor: inteiro
 
 * https://ayga-api.herokuapp.com/get_saved_data_by_gvalue/valor
   * Retorna os dados armazenados até o momento para valores superiores ao enviado como argumento
-
+  * valor: inteiro
+  
+* https://ayga-api.herokuapp.com/get_saved_data_by_bvalue/valor/valor2
+  * Retorna os dados armazenados até o momento para valores entre os valores informados
+  * valor: inteiro menor / valor2: inteiro maior
+  
 * https://ayga-api.herokuapp.com/get_saved_data_by_date_interval/data_inicial/data_final
   * Retorna os dados armazenados até o momento para o intervalo de datas enviado como argumento
+  * data_inicial: YYYY-MM-DD / data_final: YYYY-MM-DD
 
 * https://ayga-api.herokuapp.com/get_saved_data_by_type_date_interval/tipo/data_inicial/data_final
   * Retorna os dados armazenados até o momento para o tipo e intervalo de datas enviado como argumento
+  * tipo: nome do sinal / data_inicial: YYYY-MM-DD / data_final: YYYY-MM-DD

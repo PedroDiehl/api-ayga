@@ -54,7 +54,7 @@ def create_json_sinais(data, tipo):
     logs = [{"date": date, "value": value} for date, value in data]
 
     # Cria o dicionário de tipo de sinal e registros
-    return {"UUID": tipo, "logs": logs}
+    return {"UUID": tipo, "logs": logs or []}
 
 class GetSavedData(Resource):
     '''
@@ -350,8 +350,8 @@ api.add_resource(GetSavedDataByType, "/get_saved_data_by_type/<string:tipo>")
 api.add_resource(GetSavedDataBylValue, "/get_saved_data_by_lvalue/<int:valor>")
 api.add_resource(GetSavedDataByeValue, "/get_saved_data_by_evalue/<int:valor>")
 api.add_resource(GetSavedDataBygValue, "/get_saved_data_by_gvalue/<int:valor>")
-api.add_resource(GetSavedDataBybValue, "/get_saved_data_by_bvalue/<int:valor>/<int:valor2>")
 api.add_resource(GetSavedDataByDate, "/get_saved_data_by_date/<string:data_busca>")
+api.add_resource(GetSavedDataBybValue, "/get_saved_data_by_bvalue/<int:valor>/<int:valor2>")
 api.add_resource(GetSavedDataByDateInterval, "/get_saved_data_by_date_interval/<string:data_inicio>/<string:data_fim>")
 api.add_resource(GetSavedDataByType_DateInterval, "/get_saved_data_by_type_date_interval/<string:tipo>/<string:data_inicio>/<string:data_fim>")
 
