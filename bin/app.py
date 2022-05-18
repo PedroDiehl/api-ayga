@@ -131,7 +131,11 @@ class GetSavedDataByDate(Resource):
 
             # Seleciona data e valor onde o tipo é igual ao tipo atual
             # Try block for curs.execute() psycopg2 error
-            curs.execute("SELECT date, value FROM signals WHERE type = %s AND date = %s", (tipo, data_busca))
+            try:
+                curs.execute("SELECT date, value FROM signals WHERE type = %s AND date = %s", (tipo, data_busca))
+            except psycopg2.errors.InvalidDatetimeFormat as invalid_dt_error:
+                return jsonify({"error": "Formato de data inválido, correto: YYYY-MM-DDTHH:MM:SSZ"})
+
             data = curs.fetchall()
 
             # Cria a lista de logs através de list compreenshion
@@ -143,7 +147,7 @@ class GetSavedDataByDate(Resource):
             # Cria a lista de dicionários de tipo de sinal e registros
             signals.append(formato_json_sinais)
 
-        return jsonify(create_json(formato_json_sinais))
+        return jsonify(create_json(signals))
 
 class GetSavedDataByDateInterval(Resource):
     '''
