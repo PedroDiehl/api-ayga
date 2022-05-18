@@ -7,8 +7,8 @@ Candidato: Pedro Henrique Diehl
 
 import json
 import sqlite3
+from flask import Flask, request
 from flask_restful import Api, Resource
-from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 api = Api(app)
@@ -60,8 +60,11 @@ class PostData(Resource):
 
     def post(self):
 
+        # Recebe os dados e faz a leitura
         dados = json.load(open(request.get_json()))
         sinais = dados[0]["signals"]
+
+        # Filtra os dados e faz a inserção no banco de dados
         for sinal in sinais:
             tipo = sinal["UUID"]
 
@@ -75,6 +78,7 @@ class PostData(Resource):
 
         return {"status": "ok"}
 
+# Adiciona os recursos a API
 api.add_resource(GetSavedData, "/get_saved_data")
 api.add_resource(PostData, "/post_data")
 
