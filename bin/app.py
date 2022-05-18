@@ -13,6 +13,25 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 api = Api(app)
 
+def create_table():
+    '''
+    Usado para criar a tabela quando exportar para o Heroku
+    '''
+
+    with sqlite3.connect("B66db.db") as conn:
+        curs = conn.cursor()
+
+        curs.execute('''CREATE TABLE signals 
+                    (id INTEGER PRIMARY KEY, 
+                    date TIMESTAMP, 
+                    type TEXT, 
+                    value TEXT)'''
+                    )
+
+        curs.commit()
+
+    return
+
 class GetSavedData(Resource):
     '''
     Utilizada para retornar todos os dados salvos no banco de dados
@@ -86,4 +105,5 @@ api.add_resource(GetSavedData, "/get_saved_data")
 api.add_resource(PostData, "/post_data")
 
 if __name__ == "__main__":
+    create_table()
     app.run(debug=False)
