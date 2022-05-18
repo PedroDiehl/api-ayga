@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 JSON_FILE = "example_json.json"
-conn = psycopg2.connect(os.getenv("HEROKU_DB_URL"))
+conn = psycopg2.connect(os.environ.get('DATABASE_URL'))
 curs = conn.cursor()
 
 def create_db():
