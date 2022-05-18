@@ -39,8 +39,8 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [x] Configurar o ambiente de desenvolvimento (VSCode, Git, Github, Heroku)
 - [x] Criar debuggers intuitivos para API, Banco de Dados e .json
 - [x] Interpretar formato .json enviado através do POST e documentação fornecida
-- [ ] Configurar Base de dados no SQLite3
-- [ ] Integrar todas tecnlogias desenvolvidas
+- [x] Configurar Base de dados no SQLite3
+- [x] Integrar todas tecnlogias desenvolvidas
 - [ ] Ajustes finais
 - [ ] Deploy final no Heroku
 
