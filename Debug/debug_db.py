@@ -115,6 +115,7 @@ def menu_debugdb():
     print("7 - Testar formatar .json")
     print("8 - Deletar tabela")
     print("9 - Filtro com Where")
+    print("10 - Debug Date")
     print("Outro - ENCERRAR\n")
 
     while True:
@@ -160,6 +161,10 @@ def menu_debugdb():
             print(f"{curs.fetchall()}\n")
             print("Flitro com Where executado com sucesso!\n")
 
+        elif escolha == "10":
+            curs.execute("SELECT date, value FROM signals WHERE type = %s AND date BETWEEN %s AND %s", ("extTemperature1", "2022-05-17", "2022-05-18"))
+            print(f"{curs.fetchall()}\n")
+            print("Debug Date executado com sucesso!\n")
         else:
             print("Encerrando...\n")
             break
