@@ -71,5 +71,8 @@ Diferentes filtros para o método GET
 * https://ayga-api.herokuapp.com/get_saved_data_by_date/data_busca
   * Retorna os dados armazenados até o momento para data enviada como argumento
 
+* https://ayga-api.herokuapp.com/get_saved_data_by_date_interval/data_inicial/data_final
+  * Retorna os dados armazenados até o momento para o intervalo de datas enviado como argumento
+
 * https://ayga-api.herokuapp.com/get_saved_data_by_type_date_interval/tipo/data_inicial/data_final
   * Retorna os dados armazenados até o momento para o tipo e intervalo de datas enviado como argumento

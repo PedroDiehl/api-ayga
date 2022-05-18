@@ -189,7 +189,7 @@ class GetSavedDataByDateInterval(Resource):
             formato_json_sinais = {"UUID": tipo, "logs": logs}
             signals.append(formato_json_sinais)
 
-        return jsonify(create_json(formato_json_sinais))
+        return jsonify(create_json(signals))
 
 class GetSavedDataByType_DateInterval(Resource):
     '''
