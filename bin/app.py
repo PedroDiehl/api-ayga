@@ -137,7 +137,7 @@ def query_value(curs, valor, sign, valor2=None):
         elif sign == "<":
             curs.execute("SELECT date, value FROM signals WHERE type = %s AND value < %s", (tipo, valor))
         elif sign == "|":
-            curs.execute("SELECT date, value FROM signals WHERE value BETWEEN %s AND %s", (tipo, valor, valor2))
+            curs.execute("SELECT date, value FROM signals WHERE type = %s AND value BETWEEN %s AND %s", (tipo, valor, valor2))
 
         signals.append(create_json_sinais(curs.fetchall(), tipo))
 
