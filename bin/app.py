@@ -69,6 +69,34 @@ class GetSavedData(Resource):
 
         return jsonify(formato_json)
 
+class GetSavedDataByType(Resource):
+    '''
+    Utilizada para retornar os dados salvos no banco de dados com filtros
+    Método GET
+
+    Retorna .json
+    '''
+
+    def get(self, tipo):
+
+        if conn := connect_db():
+            curs = conn.cursor()
+        else:
+            return jsonify({"error": "Não foi possível conectar ao banco de dados"})
+
+        # Seleciona data e valor onde o tipo é igual ao tipo atual
+        curs.execute("SELECT date, value FROM signals WHERE type = %s", (tipo,))
+        data = curs.fetchall()
+
+        # Cria a lista de logs através de list compreenshion
+        logs = [{"date": date, "value": value} for date, value in data]
+
+        # Cria o dicionário de tipo de sinal e registros
+        formato_json_sinais = {"UUID": tipo, 
+                                "logs": logs}
+
+        return jsonify(formato_json_sinais)
+
 class PostData(Resource):
     '''
     Utilizada para receber os dados do dispositvo e salvar no banco de dados
@@ -110,8 +138,9 @@ class PostData(Resource):
         return jsonify({"status": "ok", "message": "Dados salvos com sucesso!"})
 
 # Adiciona os recursos a API
-api.add_resource(GetSavedData, "/get_saved_data")
 api.add_resource(PostData, "/post_data")
+api.add_resource(GetSavedData, "/get_saved_data")
+api.add_resource(GetSavedDataByType, "/get_saved_data_by_type/<string:tipo>")
 
 if __name__ == "__main__":
     app.run(debug=False)
