@@ -183,7 +183,7 @@ class GetSavedDataByDateInterval(Resource):
             data = curs.fetchall()
 
             # Cria a lista de logs através de list compreenshion
-            logs = [{"date": date, "value": value} for (date, value, _) in data]
+            logs = [{"date": date, "value": value} for date, value in data]
 
             # Cria o dicionário de tipo de sinal e registros
             formato_json_sinais = {"UUID": tipo, "logs": logs}
