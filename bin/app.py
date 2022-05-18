@@ -64,8 +64,8 @@ class PostData(Resource):
             curs = conn.cursor()
 
             # Recebe os dados e faz a leitura
-            dados = json.load(open(request.get_json()))
-            sinais = dados["signals"]
+            dados = request.get_json()
+            sinais = dados[0]["signals"]
 
             # Filtra os dados e faz a inserção no banco de dados
             for sinal in sinais:
