@@ -129,9 +129,12 @@ class GetSavedDataByDateInterval(Resource):
         tipos_filtrados = tuple(tipo[0] for tipo in tipos)
 
         if tipo in tipos_filtrados:
-            # Seleciona data e valor onde o tipo é igual ao tipo atual
-            # Try block for curs.execute() psycopg2 error
-            curs.execute("SELECT date, value FROM signals WHERE type = %s AND date BETWEEN %s AND %s", (tipo, data_inicio, data_fim))
+            # Garante que a query não irá retornar em error
+            try:
+                curs.execute("SELECT date, value FROM signals WHERE type = %s AND date BETWEEN %s AND %s", (tipo, data_inicio, data_fim))
+            except psycopg2.ProgrammingError as filter_type_date_interval_error:
+                return jsonify({"error": "Erro de sintaxe na query"})
+
             data = curs.fetchall()
 
             # Cria a lista de logs através de list compreenshion

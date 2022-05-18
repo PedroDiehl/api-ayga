@@ -7,7 +7,7 @@
 - [👨‍💻 Candidato](#-candidato)
 - [💻 Tecnologias empregadas](#-tecnologias-empregadas)
 - [🕐 Linha do Tempo](#-linha-do-tempo)
-- [📐 Próximos passos](#-próximos-passos)
+- [📐 Desenvolvido](#-desenvolvido)
 - [📥 Endpoints HTTP 📤](#-endpoints-http-)
 
 ## 📍 Introdução
@@ -39,19 +39,29 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [x] Configurar o ambiente de desenvolvimento (VSCode, Git, Github, Heroku)
 - [x] Criar debuggers intuitivos para API, Banco de Dados e .json
 - [x] Interpretar formato .json enviado através do POST e documentação fornecida
-- [x] Configurar Base de dados no SQLite3
+- [x] Configurar Base de dados no Postgres integrado com Heroku
 - [x] Integrar todas tecnlogias desenvolvidas
+- [ ] Desenvolver filtros para requisições tipo GET
 - [ ] Ajustes finais
 - [ ] Deploy final no Heroku
 
-## 📐 Próximos passos
-Desenvolver filtros para diferentes solicitações do tipo GET
+## 📐 Desenvolvido
+Diferentes filtros para o método GET
 
-- Filtro por ID do dispositivo
-- Filtro por tipo sinal do dispositivo
-- Filtro por data ou intervalo de datas
-- Filtro por valor de temperatura ou intervalo de temperaturas
+- Filtro por data
+- Filtro por intervalo de datas
+- Filtro por valor de temperatura
+- Filtro por tipo do sinal do dispositivo
+- Filtro por intervalo de valor de temperaturas
+- Filtro por tipo do sinal e intervalo de datas
 
 ## 📥 Endpoints HTTP 📤
 
-https://ayga-api.herokuapp.com/get_saved_data - Retorna todos os dados armazenados até o momento
+* https://ayga-api.herokuapp.com/get_saved_data 
+  *  Retorna todos os dados armazenados até o momento
+
+* https://ayga-api.herokuapp.com/get_saved_data_by_type/tipo
+  * Retorna os dados armazenados até o momento para o tipo enviado como argumento
+
+* https://ayga-api.herokuapp.com/get_saved_data_by_date_interval/tipo/data_inicial/data_final
+  * Retorna os dados armazenados com
