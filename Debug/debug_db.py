@@ -117,6 +117,8 @@ def menu_debugdb():
     print("8 - Deletar tabela")
     print("9 - Filtro com Where")
     print("10 - Debug Date")
+    print("11 - Debug Between")
+    print("12 - Debug teste dict")
     print("Outro - ENCERRAR\n")
 
     while True:
@@ -166,6 +168,18 @@ def menu_debugdb():
             curs.execute("SELECT date, value FROM signals WHERE type = %s AND date BETWEEN %s AND %s", ("extTemperature1", "2022-05-17", dt.datetime.strptime("2022-05-17", "%Y-%m-%d") +  dt.timedelta(days=1)))
             print(f"{curs.fetchall()}\n")
             print("Debug Date executado com sucesso!\n")
+
+        elif escolha == "11":
+            curs.execute("SELECT date, value FROM signals WHERE value BETWEEN %s AND %s ", (19, -20))
+    
+            print(f"{curs.fetchall()}\n")
+            print("Debug Between executado com sucesso!\n")
+
+        elif escolha == "12":
+            teste1 = [123]
+            dict_teste = {'a': 1, 'b': teste1 or []}
+            print(dict_teste)
+
         else:
             print("Encerrando...\n")
             break

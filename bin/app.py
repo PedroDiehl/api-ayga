@@ -54,7 +54,7 @@ def create_json_sinais(data, tipo):
     logs = [{"date": date, "value": value} for date, value in data]
 
     # Cria o dicionário de tipo de sinal e registros
-    return {"UUID": tipo, "logs": logs}
+    return {"UUID": tipo, "logs": logs or []}
 
 class GetSavedData(Resource):
     '''
