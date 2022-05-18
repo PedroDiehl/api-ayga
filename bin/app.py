@@ -7,8 +7,8 @@ Candidato: Pedro Henrique Diehl
 
 import json
 import sqlite3
-from flask import Flask, request
 from flask_restful import Api, Resource
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 api = Api(app)
@@ -48,7 +48,7 @@ class GetSavedData(Resource):
         formato_json = {"deviceUUID": "00000B66",
                         "signals": signals}
 
-        return formato_json
+        return jsonify(formato_json)
 
 class PostData(Resource):
     '''
