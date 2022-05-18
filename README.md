@@ -29,7 +29,7 @@ Apresentando as teconlogias utilizadas para desenvolver esse projeto
 
 * Python
   * flask
-* SQLite 3
+* PostgresSQL
 
 ## 🕐 Linha do Tempo
 
