@@ -52,8 +52,8 @@ Diferentes filtros para o método GET
 - Filtro por intervalo de datas
 - Filtro por valor de temperatura
 - Filtro por tipo do sinal do dispositivo
-- Filtro por intervalo de valor de temperaturas
 - Filtro por tipo do sinal e intervalo de datas
+- Filtro por intervalo de valor de temperaturas
 
 ## 📥 Endpoints HTTP 📤
 
