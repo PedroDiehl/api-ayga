@@ -5,6 +5,9 @@ Módulo utilizado para debugar o banco de dados e suas querys
 import json
 
 def debug_db(json_file):
+    '''
+    Função para administrar os comandos no banco de dados em debug
+    '''
 
     with open(json_file) as f:
         data = json.load(f)
