@@ -57,6 +57,7 @@ Diferentes filtros para o método GET
 - Filtro por intervalo de valores - ❌
 - Filtro por tipo do sinal do dispositivo - ✔️
 - Filtro por tipo do sinal e intervalo de datas - ✔️
+- Filtro por tipo do sinal e intervalo de valores - ❌
 
 ### ▶️ Legenda
 ✔️ - Disponível

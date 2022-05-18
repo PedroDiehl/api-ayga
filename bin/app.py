@@ -38,6 +38,17 @@ def selecionar_tipos(curs):
 
     return tuple(tipo[0] for tipo in tipos)
 
+def create_json_sinais(data, tipo):
+    '''
+    Cria o formato de dicionário dos logs dos sinais
+    '''
+
+    # Cria a lista de logs através de list compreenshion
+    logs = [{"date": date, "value": value} for date, value in data]
+
+    # Cria o dicionário de tipo de sinal e registros
+    return {"UUID": tipo, "logs": logs}
+
 def create_json(signals):
     '''
     Função para criar o json a ser retornado
@@ -111,19 +122,24 @@ class GetSavedDataByType(Resource):
         else:
             return jsonify({"error": "Tipo de sinal não encontrado"})
 
-def query_value(curs, tipo, valor, sign):
+def query_value(curs, valor, sign):
     '''
     Reaiza a administração da Query de busca dependendo da requisição
     '''
 
-    if sign == "=":
-        curs.execute("SELECT date, value FROM signals WHERE type = %s AND value = %s", (tipo, valor))
-    elif sign == ">":
-        curs.execute("SELECT date, value FROM signals WHERE type = %s AND value > %s", (tipo, valor))
-    elif sign == "<":
-        curs.execute("SELECT date, value FROM signals WHERE type = %s AND value < %s", (tipo, valor))
+    signals = []
 
-    return curs.fetchall()
+    for tipo in selecionar_tipos(curs):
+        if sign == "=":
+            curs.execute("SELECT date, value FROM signals WHERE type = %s AND value = %s", (tipo, valor))
+        elif sign == ">":
+            curs.execute("SELECT date, value FROM signals WHERE type = %s AND value > %s", (tipo, valor))
+        elif sign == "<":
+            curs.execute("SELECT date, value FROM signals WHERE type = %s AND value < %s", (tipo, valor))
+
+        signals.append(create_json_sinais(curs.fetchall(), tipo))
+
+    return signals
 
 class GetSavedDataBylValue(Resource):
     '''
@@ -141,19 +157,7 @@ class GetSavedDataBylValue(Resource):
         else:
             return jsonify({"error": "Não foi possível conectar ao banco de dados"})
 
-        signals = []
-        for tipo in selecionar_tipos(curs):
-
-            data = query_value(curs, tipo, valor, "<")
-
-            # Cria a lista de logs através de list compreenshion
-            logs = [{"date": date, "value": value} for date, value in data]
-
-            # Cria o dicionário de tipo de sinal e registros
-            formato_json_sinais = {"UUID": tipo, "logs": logs}
-            signals.append(formato_json_sinais)
-
-        return jsonify(create_json(signals))
+        return jsonify(create_json(query_value(curs, valor, "<")))
 
 class GetSavedDataByeValue(Resource):
     '''
@@ -171,19 +175,7 @@ class GetSavedDataByeValue(Resource):
         else:
             return jsonify({"error": "Não foi possível conectar ao banco de dados"})
 
-        signals = []
-        for tipo in selecionar_tipos(curs):
-
-            data = query_value(curs, tipo, valor, "=")
-
-            # Cria a lista de logs através de list compreenshion
-            logs = [{"date": date, "value": value} for date, value in data]
-
-            # Cria o dicionário de tipo de sinal e registros
-            formato_json_sinais = {"UUID": tipo, "logs": logs}
-            signals.append(formato_json_sinais)
-
-        return jsonify(create_json(signals))
+        return jsonify(create_json(query_value(curs, valor, "=")))
 
 class GetSavedDataBygValue(Resource):
     '''
@@ -201,19 +193,7 @@ class GetSavedDataBygValue(Resource):
         else:
             return jsonify({"error": "Não foi possível conectar ao banco de dados"})
 
-        signals = []
-        for tipo in selecionar_tipos(curs):
-
-            data = query_value(curs, tipo, valor, ">")
-
-            # Cria a lista de logs através de list compreenshion
-            logs = [{"date": date, "value": value} for date, value in data]
-
-            # Cria o dicionário de tipo de sinal e registros
-            formato_json_sinais = {"UUID": tipo, "logs": logs}
-            signals.append(formato_json_sinais)
-
-        return jsonify(create_json(signals))
+        return jsonify(create_json(query_value(curs, valor, ">")))
 
 class GetSavedDataByDate(Resource):
     '''
@@ -242,16 +222,7 @@ class GetSavedDataByDate(Resource):
             except psycopg2.errors.InvalidDatetimeFormat as invalid_dt_error:
                 return jsonify({"error": "Formato de data inválido, correto: YYYY-MM-DDTHH:MM:SSZ"})
 
-            data = curs.fetchall()
-
-            # Cria a lista de logs através de list compreenshion
-            logs = [{"date": date, "value": value} for date, value in data]
-
-            # Cria o dicionário de tipo de sinal e registros
-            formato_json_sinais = {"UUID": tipo, "logs": logs}
-
-            # Cria a lista de dicionários de tipo de sinal e registros
-            signals.append(formato_json_sinais)
+            signals.append(create_json_sinais(curs.fetchall(), tipo))
 
         return jsonify(create_json(signals))
 
@@ -280,14 +251,7 @@ class GetSavedDataByDateInterval(Resource):
             except psycopg2.errors.InvalidDatetimeFormat as invalid_dt_error:
                 return jsonify({"error": "Formato de data inválido, correto: YYYY-MM-DDTHH:MM:SSZ"})
 
-            data = curs.fetchall()
-
-            # Cria a lista de logs através de list compreenshion
-            logs = [{"date": date, "value": value} for date, value in data]
-
-            # Cria o dicionário de tipo de sinal e registros
-            formato_json_sinais = {"UUID": tipo, "logs": logs}
-            signals.append(formato_json_sinais)
+            signals.append(create_json_sinais(curs.fetchall(), tipo))
 
         return jsonify(create_json(signals))
 
@@ -314,15 +278,7 @@ class GetSavedDataByType_DateInterval(Resource):
             except psycopg2.errors.InvalidDatetimeFormat as invalid_dt_error:
                 return jsonify({"error": "Formato de data inválido, correto: YYYY-MM-DDTHH:MM:SSZ"})
 
-            data = curs.fetchall()
-
-            # Cria a lista de logs através de list compreenshion
-            logs = [{"date": date, "value": value} for date, value in data]
-
-            # Cria o dicionário de tipo de sinal e registros
-            formato_json_sinais = {"UUID": tipo, "logs": logs}
-
-            return jsonify(create_json([formato_json_sinais]))
+            return jsonify(create_json([create_json_sinais(curs.fetchall(), tipo)]))
 
         else:
             return jsonify({"error": "Tipo de sinal não encontrado"})
