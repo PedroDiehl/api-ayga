@@ -62,7 +62,7 @@ class PostData(Resource):
 
         # Recebe os dados e faz a leitura
         dados = json.load(open(request.get_json()))
-        sinais = dados[0]["signals"]
+        sinais = dados["signals"]
 
         # Filtra os dados e faz a inserção no banco de dados
         for sinal in sinais:
@@ -76,7 +76,7 @@ class PostData(Resource):
                 curs.execute("INSERT INTO signals (date, type, value) VALUES (?, ?, ?)", (data, tipo, valor))
                 curs.commit()
 
-        return {"status": "ok"}
+        return jsonify({"status": "ok"})
 
 # Adiciona os recursos a API
 api.add_resource(GetSavedData, "/get_saved_data")
