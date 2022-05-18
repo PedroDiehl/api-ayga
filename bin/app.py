@@ -12,9 +12,8 @@ from flask_restful import Api, Resource
 
 app = Flask(__name__)
 api = Api(app)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///B66db.sqlite"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///B66db.db"
 db = SQLAlchemy(app)
-db.create_all()
 
 class GetSavedData(Resource):
     '''
@@ -39,7 +38,7 @@ class PostData(Resource):
     Utilizada para receber os dados do dispositvo e salvar no banco de dados
     Método: POST
 
-    Não retorna nada
+    Retorna {"status": "ok"}
     '''
 
     def post(self):
@@ -47,12 +46,16 @@ class PostData(Resource):
         
         '''
 
-        dados = request.get_json()
+        dados = json.load(open(request.get_json()))
+        sinais = dados[0]["signals"]
+        for sinal in sinais:
+            tipo = sinal["UUID"]
 
-        with open("data_json.json", 'w') as outfile:
-            json.dump(dados, outfile, indent=4)
+            for registro in sinal["logs"]:
+                data = registro["date"]
+                valor = registro["value"]
 
-        return jsonify(dados)
+        return {"status": "ok"}
 
 
 api.add_resource(GetSavedData, "/get_saved_data")

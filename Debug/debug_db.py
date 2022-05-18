@@ -6,9 +6,9 @@ import json
 import sqlite3
 
 JSON_FILE = "example_json.json"
-DB_FILE = "debug_B66db.sqlite"
+DB_FILE = "debug_B66db.db"
 conn = sqlite3.connect(DB_FILE)
-c = conn.cursor()
+curs = conn.cursor()
 
 def create_db():
     '''
@@ -21,14 +21,12 @@ def create_db():
     # Column 3: type
     # Column 4: value
 
-    c.execute('''CREATE TABLE signals 
+    curs.execute('''CREATE TABLE signals 
                 (id INTEGER PRIMARY KEY, 
                 date TIMESTAMP, 
                 type TEXT, 
                 value TEXT)'''
                 )
-
-    conn.commit()
 
     print("Banco de dados criado com sucesso!\n")
 
@@ -37,41 +35,25 @@ def create_db():
 
 def test_insert():
     '''
-    
+    Teste para inserir dados no banco de dados
     '''
 
-    return
-
-def search_query():
-    '''
-    
-    '''
-
-    return
-
-def debug_db():
-    '''
-    Função para administrar os comandos no banco de dados em debug
-    '''
+    sinais = json.load(open(JSON_FILE))[0]["signals"]
 
     with open(JSON_FILE) as f:
         data = json.load(f)
 
     sinais = data[0]["signals"]
-    sinal1 = sinais[0]
-    sinal2 = sinais[1]
+    for sinal in sinais:
+        tipo = sinal["UUID"]
 
-    data_sinal1 = sinal1["logs"][0]["date"]
-    data_sinal2 = sinal2["logs"][0]["date"]
+        for registro in sinal["logs"]:
+            data = registro["date"]
+            valor = registro["value"]
 
-    print(data_sinal1)
-    print(data_sinal2)
+            curs.execute("INSERT INTO signals (date, type, value) VALUES (?, ?, ?)", (data, tipo, valor))
 
-    print(type(data_sinal1))
-    print(type(data_sinal2))
-    
-    print(data_sinal1.replace("Z", ""))
-    print(data_sinal2.replace("Z", ""))
+    print("Dados inseridos com sucesso!\n")
 
     return
 
@@ -82,9 +64,10 @@ def menu_debugdb():
 
     print("\n-----------------------------\nEscolha o que deseja testar:\n-----------------------------\n")
     print("1 - Criar Banco de Dados")
-    print("2 - Acessar debug")
-    print("3 - Testar inserção")
-    print("4 - Rodar Query")
+    print("2 - Testar inserção")
+    print("3 - Testar busca geral")
+    print("4 - Limpar tabela")
+    print("5 - Testar busca por tipo de sinal")
     print("Outro - ENCERRAR\n")
 
     while True:
@@ -92,19 +75,25 @@ def menu_debugdb():
 
         if escolha == "1":
             create_db()
-
         elif escolha == "2":
-            debug_db()
-
-        elif escolha == "3":
             test_insert()
+        elif escolha == "3":
+            print(f'{curs.execute("SELECT * FROM signals").fetchall()}\n')
+            print("Busca geral realizada com sucesso!\n")
 
         elif escolha == "4":
-            search_query()
+            curs.execute("DELETE FROM signals")
+            print("Tabela limpa com sucesso!\n")
+
+        elif escolha == "5":
+            print(f"{curs.execute('SELECT DISTINCT type FROM signals ORDER BY type').fetchall()}\n")
+            print("Busca por tipo realizada com sucesso!\n")
 
         else:
             print("Encerrando...\n")
             break
+
+        conn.commit()
 
     conn.close()
     return
