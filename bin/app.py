@@ -19,10 +19,12 @@ def connect_db():
     Função para conectar ao banco de dados.
     '''
 
-    try:
-        return psycopg2.connect(os.environ.get('DATABASE_URL'))
-    except Exception as e:
-        print(e)
+    print(os.environ.get('DATABASE_URL'))
+    #try:
+        #return psycopg2.connect(os.environ.get('DATABASE_URL'))
+    #except Exception as e:
+        #print(e)
+    return
 
 class GetSavedData(Resource):
     '''
