@@ -132,7 +132,7 @@ class GetSavedDataByDateInterval(Resource):
             # Garante que a query não irá retornar em error
             try:
                 curs.execute("SELECT date, value FROM signals WHERE type = %s AND date BETWEEN %s AND %s", (tipo, data_inicio, data_fim))
-            except psycopg2.ProgrammingError as filter_type_date_interval_error:
+            except psycopg2.errors.InvalidDatetimeFormat as invalid_dt_error:
                 return jsonify({"error": "Erro de sintaxe na query"})
 
             data = curs.fetchall()
