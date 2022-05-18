@@ -175,7 +175,7 @@ class GetSavedDataByDateInterval(Resource):
         for tipo in selecionar_tipos(curs):
             # Garante que a query não irá retornar em error
             try:
-                curs.execute("SELECT date, value FROM signals WHERE type = %s date BETWEEN %s AND %s",
+                curs.execute("SELECT date, value FROM signals WHERE type = %s AND date BETWEEN %s AND %s",
                             (tipo, data_inicio, data_fim))
             except psycopg2.errors.InvalidDatetimeFormat as invalid_dt_error:
                 return jsonify({"error": "Formato de data inválido, correto: YYYY-MM-DDTHH:MM:SSZ"})
