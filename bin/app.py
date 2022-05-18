@@ -6,14 +6,15 @@ Candidato: Pedro Henrique Diehl
 
 
 import json
-from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, request, jsonify
+import sqlite3
 from flask_restful import Api, Resource
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 api = Api(app)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///B66db.db"
-db = SQLAlchemy(app)
+
+conn = sqlite3.connect("B66db.db")
+curs = conn.cursor()
 
 class GetSavedData(Resource):
     '''
@@ -42,9 +43,6 @@ class PostData(Resource):
     '''
 
     def post(self):
-        '''
-        
-        '''
 
         dados = json.load(open(request.get_json()))
         sinais = dados[0]["signals"]
@@ -55,8 +53,11 @@ class PostData(Resource):
                 data = registro["date"]
                 valor = registro["value"]
 
-        return {"status": "ok"}
+                # Inserção no banco de dados
+                curs.execute("INSERT INTO signals (date, type, value) VALUES (?, ?, ?)", (data, tipo, valor))
+                curs.commit()
 
+        return {"status": "ok"}
 
 api.add_resource(GetSavedData, "/get_saved_data")
 api.add_resource(PostData, "/post_data")
