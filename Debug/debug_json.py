@@ -5,7 +5,7 @@ Módulo utilizado para debugar o formato dos JSONs enviados ao servidor
 
 import json
 
-def json_to_dict(json_file):
+def debug_json(json_file):
     '''
     Função para converter um arquivo JSON para um dicionário Python
     '''
@@ -45,4 +45,4 @@ def json_to_dict(json_file):
     return
 
 if __name__ == "__main__":
-    json_to_dict("example_json.json")
+    debug_json("example_json.json")
