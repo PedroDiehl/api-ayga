@@ -51,8 +51,8 @@ Diferentes filtros para o método GET
 
 - Filtro por data - ✔️
 - Filtro por valor - ✔️
-- Filtro por menor que valor  - ❌
-- Filtro por maior que valor  - ❌
+- Filtro por menor que valor  - ✔️
+- Filtro por maior que valor  - ✔️
 - Filtro por intervalo de datas - ✔️
 - Filtro por intervalo de valores - ❌
 - Filtro por tipo do sinal do dispositivo - ✔️
@@ -73,8 +73,14 @@ Diferentes filtros para o método GET
 * https://ayga-api.herokuapp.com/get_saved_data_by_type/tipo
   * Retorna os dados armazenados até o momento para o tipo enviado como argumento
 
-* https://ayga-api.herokuapp.com/get_saved_data_by_value/valor
-  * Retorna os dados armazenados até o momento para o valor enviado como argumento
+* https://ayga-api.herokuapp.com/get_saved_data_by_evalue/valor
+  * Retorna os dados armazenados até o momento para o valor igual ao enviado como argumento
+
+* https://ayga-api.herokuapp.com/get_saved_data_by_lvalue/valor
+  * Retorna os dados armazenados até o momento para valores inferiores ao enviado como argumento
+
+* https://ayga-api.herokuapp.com/get_saved_data_by_gvalue/valor
+  * Retorna os dados armazenados até o momento para valores superiores ao enviado como argumento
 
 * https://ayga-api.herokuapp.com/get_saved_data_by_date_interval/data_inicial/data_final
   * Retorna os dados armazenados até o momento para o intervalo de datas enviado como argumento
