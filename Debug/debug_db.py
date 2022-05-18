@@ -6,7 +6,7 @@ import json
 import sqlite3
 
 JSON_FILE = "example_json.json"
-DB_FILE = "B66db.sqlite"
+DB_FILE = "debug_B66db.sqlite"
 conn = sqlite3.connect(DB_FILE)
 c = conn.cursor()
 
@@ -106,6 +106,7 @@ def menu_debugdb():
             print("Encerrando...\n")
             break
 
+    conn.close()
     return
 
 if __name__ == "__main__":
