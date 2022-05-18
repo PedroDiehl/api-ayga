@@ -23,7 +23,7 @@ class GetSavedData(Resource):
 
     def get(self):
 
-        with sqlite3.connect("B66db.db", check_same_thread=False) as conn:
+        with sqlite3.connect("B66db.db") as conn:
             curs = conn.cursor()
 
             tipos = curs.execute("SELECT DISTINCT type FROM signals").fetchall()
@@ -60,9 +60,9 @@ class PostData(Resource):
 
     def post(self):
 
-        with sqlite3.connect("B66db.db", check_same_thread=False) as conn:
+        with sqlite3.connect("B66db.db") as conn:
             curs = conn.cursor()
-            
+
             # Recebe os dados e faz a leitura
             dados = json.load(open(request.get_json()))
             sinais = dados["signals"]
