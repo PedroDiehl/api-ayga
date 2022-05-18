@@ -87,7 +87,9 @@ class GetSavedDataByType(Resource):
         curs.execute("SELECT DISTINCT type FROM signals")
         tipos = curs.fetchall()
 
-        if tipo in tipos:
+        tipos_filtrados = [tipo[0] for tipo in tipos]
+
+        if tipo in tipos_filtrados:
             # Seleciona data e valor onde o tipo é igual ao tipo atual
             curs.execute("SELECT date, value FROM signals WHERE type = %s", (tipo,))
             data = curs.fetchall()
