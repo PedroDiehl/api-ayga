@@ -1,13 +1,11 @@
 '''
-Script Python utilizado para rodar comandos para debugar a API em desenvolvimento
+Módulo utilizado  para debugar a API em desenvolvimento
 '''
 
 
-from ast import While
-import itertools
-import requests
 import json
 import logging
+import requests
 
 logging.basicConfig(filename='debug_api.log', encoding='utf-8', 
                     format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', 
