@@ -27,6 +27,16 @@ def connect_db():
 
     return conn
 
+def selecionar_tipos(curs):
+    '''
+    Função para selecionar os tipos de sinais
+    '''
+
+    curs.execute("SELECT DISTINCT type FROM signals")
+    tipos = curs.fetchall()
+
+    return tuple(tipo[0] for tipo in tipos)
+
 class GetSavedData(Resource):
     '''
     Utilizada para retornar todos os dados salvos no banco de dados
@@ -42,23 +52,19 @@ class GetSavedData(Resource):
         else:
             return jsonify({"error": "Não foi possível conectar ao banco de dados"})
 
-        curs.execute("SELECT DISTINCT type FROM signals")
-        tipos = curs.fetchall()
-
         signals = []
-        for tipo in tipos:
+        for tipo in selecionar_tipos(curs):
 
             # Seleciona data e valor onde o tipo é igual ao tipo atual
             # Try block for curs.execute() psycopg2 error
-            curs.execute("SELECT date, value FROM signals WHERE type = %s", (tipo[0],))
+            curs.execute("SELECT date, value FROM signals WHERE type = %s", (tipo,))
             data = curs.fetchall()
 
             # Cria a lista de logs através de list compreenshion
             logs = [{"date": date, "value": value} for date, value in data]
 
             # Cria o dicionário de tipo de sinal e registros
-            formato_json_sinais = {"UUID": tipo[0], 
-                                    "logs": logs}
+            formato_json_sinais = {"UUID": tipo, "logs": logs}
 
             # Cria a lista de dicionários de tipo de sinal e registros
             signals.append(formato_json_sinais)
@@ -85,12 +91,7 @@ class GetSavedDataByType(Resource):
         else:
             return jsonify({"error": "Não foi possível conectar ao banco de dados"})
 
-        curs.execute("SELECT DISTINCT type FROM signals")
-        tipos = curs.fetchall()
-
-        tipos_filtrados = tuple(tipo[0] for tipo in tipos)
-
-        if tipo in tipos_filtrados:
+        if tipo in selecionar_tipos(curs):
             # Seleciona data e valor onde o tipo é igual ao tipo atual
             curs.execute("SELECT date, value FROM signals WHERE type = %s", (tipo,))
             data = curs.fetchall()
@@ -99,10 +100,13 @@ class GetSavedDataByType(Resource):
             logs = [{"date": date, "value": value} for date, value in data]
 
             # Cria o dicionário de tipo de sinal e registros
-            formato_json_sinais = {"UUID": tipo, 
-                                    "logs": logs}
+            formato_json_sinais = {"UUID": tipo, "logs": logs}
 
-            return jsonify(formato_json_sinais)
+            # Cria o dicionário de dados do dispositivo
+            formato_json = {"deviceUUID": "00000B66",
+                            "signals": [formato_json_sinais]}
+
+            return jsonify(formato_json)
 
         else:
             return jsonify({"error": "Tipo de sinal não encontrado"})
@@ -123,12 +127,7 @@ class GetSavedDataByDateInterval(Resource):
         else:
             return jsonify({"error": "Não foi possível conectar ao banco de dados"})
 
-        curs.execute("SELECT DISTINCT type FROM signals")
-        tipos = curs.fetchall()
-
-        tipos_filtrados = tuple(tipo[0] for tipo in tipos)
-
-        if tipo in tipos_filtrados:
+        if tipo in selecionar_tipos(curs):
             # Garante que a query não irá retornar em error
             try:
                 curs.execute("SELECT date, value FROM signals WHERE type = %s AND date BETWEEN %s AND %s", (tipo, data_inicio, data_fim))
@@ -141,8 +140,7 @@ class GetSavedDataByDateInterval(Resource):
             logs = [{"date": date, "value": value} for date, value in data]
 
             # Cria o dicionário de tipo de sinal e registros
-            formato_json_sinais = {"UUID": tipo, 
-                                    "logs": logs}
+            formato_json_sinais = {"UUID": tipo, "logs": logs}
 
             return jsonify(formato_json_sinais)
 
