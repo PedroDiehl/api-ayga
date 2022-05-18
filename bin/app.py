@@ -36,7 +36,8 @@ class GetSavedData(Resource):
         for tipo in tipos:
 
             # Seleciona data e valor onde o tipo é igual ao tipo atual
-            data = curs.execute("SELECT date, value FROM signals WHERE type = %s", (tipo[0],)).fetchall()
+            curs.execute("SELECT date, value FROM signals WHERE type = %s", (tipo[0],))
+            data = curs.fetchall()
 
             # Cria a lista de logs através de list compreenshion
             logs = [{"date": date, "value": value} for date, value in data]
