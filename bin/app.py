@@ -122,7 +122,7 @@ class GetSavedDataByType(Resource):
         else:
             return jsonify({"error": "Tipo de sinal não encontrado"})
 
-def query_value(curs, valor, sign):
+def query_value(curs, valor, sign, valor2=None):
     '''
     Reaiza a administração da Query de busca dependendo da requisição
     '''
@@ -136,6 +136,8 @@ def query_value(curs, valor, sign):
             curs.execute("SELECT date, value FROM signals WHERE type = %s AND value > %s", (tipo, valor))
         elif sign == "<":
             curs.execute("SELECT date, value FROM signals WHERE type = %s AND value < %s", (tipo, valor))
+        elif sign == "|":
+            curs.execute("SELECT date, value FROM signals WHERE value BETWEEN %s AND %s", (tipo, valor, valor2))
 
         signals.append(create_json_sinais(curs.fetchall(), tipo))
 
@@ -194,6 +196,24 @@ class GetSavedDataBygValue(Resource):
             return jsonify({"error": "Não foi possível conectar ao banco de dados"})
 
         return jsonify(create_json(query_value(curs, valor, ">")))
+
+class GetSavedDataBybValue(Resource):
+    '''
+    Utilizada para retornar os dados salvos no banco de dados com filtros
+    Método GET
+
+    Recebe como argumento o valor do sinal que terá seus dados retornados
+    Retorna .json
+    '''
+
+    def get(self, valor, valor2):
+
+        if conn := connect_db():
+            curs = conn.cursor()
+        else:
+            return jsonify({"error": "Não foi possível conectar ao banco de dados"})
+
+        return jsonify(create_json(query_value(curs, valor, "|", valor2)))
 
 class GetSavedDataByDate(Resource):
     '''
@@ -330,6 +350,7 @@ api.add_resource(GetSavedDataByType, "/get_saved_data_by_type/<string:tipo>")
 api.add_resource(GetSavedDataBylValue, "/get_saved_data_by_lvalue/<int:valor>")
 api.add_resource(GetSavedDataByeValue, "/get_saved_data_by_evalue/<int:valor>")
 api.add_resource(GetSavedDataBygValue, "/get_saved_data_by_gvalue/<int:valor>")
+api.add_resource(GetSavedDataBybValue, "/get_saved_data_by_date/<int:valor1>/<int:valor2>")
 api.add_resource(GetSavedDataByDate, "/get_saved_data_by_date/<string:data_busca>")
 api.add_resource(GetSavedDataByDateInterval, "/get_saved_data_by_date_interval/<string:data_inicio>/<string:data_fim>")
 api.add_resource(GetSavedDataByType_DateInterval, "/get_saved_data_by_type_date_interval/<string:tipo>/<string:data_inicio>/<string:data_fim>")
