@@ -175,14 +175,15 @@ class GetSavedDataByDateInterval(Resource):
         for tipo in selecionar_tipos(curs):
             # Garante que a query não irá retornar em error
             try:
-                curs.execute("SELECT date, value FROM signals WHERE date BETWEEN %s AND %s", (data_inicio, data_fim))
+                curs.execute("SELECT date, value FROM signals WHERE type = %s date BETWEEN %s AND %s",
+                            (tipo, data_inicio, data_fim))
             except psycopg2.errors.InvalidDatetimeFormat as invalid_dt_error:
                 return jsonify({"error": "Formato de data inválido, correto: YYYY-MM-DDTHH:MM:SSZ"})
 
             data = curs.fetchall()
 
             # Cria a lista de logs através de list compreenshion
-            logs = [{"date": date, "value": value} for date, value in data]
+            logs = [{"date": date, "value": value} for date, value, _ in data]
 
             # Cria o dicionário de tipo de sinal e registros
             formato_json_sinais = {"UUID": tipo, "logs": logs}
