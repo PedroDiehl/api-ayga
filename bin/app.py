@@ -132,7 +132,7 @@ class GetSavedDataByDate(Resource):
             # Seleciona data e valor onde o tipo é igual ao tipo atual
             # Try block for curs.execute() psycopg2 error
             try:
-                curs.execute("SELECT date, value FROM signals WHERE type = %s AND date BETWEEN %s AND %s + INTERVAL '1' day", (tipo, data_busca, data_busca))
+                curs.execute("SELECT date, value FROM signals WHERE type = %s AND date BETWEEN %s AND (%s + 1)", (tipo, data_busca, data_busca))
             except psycopg2.errors.InvalidDatetimeFormat as invalid_dt_error:
                 return jsonify({"error": "Formato de data inválido, correto: YYYY-MM-DDTHH:MM:SSZ"})
 
