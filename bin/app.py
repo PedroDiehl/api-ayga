@@ -25,14 +25,30 @@ class GetSavedData(Resource):
     '''
 
     def get(self):
-        '''
-        
-        '''
 
-        with open("data_json.json", 'r') as f:
-            data = json.load(f)
+        tipos = curs.execute("SELECT DISTINCT type FROM signals").fetchall()
 
-        return jsonify(data)
+        signals = []
+        for tipo in tipos:
+
+            # Seleciona data e valor onde o tipo é igual ao tipo atual
+            data = curs.execute("SELECT date, value FROM signals WHERE type = :tipo", {"tipo": tipo[0]}).fetchall()
+
+            # Cria a lista de logs através de list compreenshion
+            logs = [{"date": date, "value": value} for date, value in data]
+
+            # Cria o dicionário de tipo de sinal e registros
+            formato_json_sinais = {"UUID": tipo[0], 
+                                    "logs": logs}
+
+            # Cria a lista de dicionários de tipo de sinal e registros
+            signals.append(formato_json_sinais)
+
+        # Cria o dicionário de dados do dispositivo
+        formato_json = {"deviceUUID": "00000B66",
+                        "signals": signals}
+
+        return json.dumps(formato_json, indent=4) 
 
 class PostData(Resource):
     '''

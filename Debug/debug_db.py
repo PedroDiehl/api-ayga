@@ -82,6 +82,7 @@ def test_json_data():
                     "signals": signals}
 
     print(format_json)
+    print(json.dumps(format_json, indent=4))
 
     return
 
