@@ -87,7 +87,7 @@ class PostData(Resource):
 
                 # Inserção no banco de dados
                 curs.execute("INSERT INTO signals (date, type, value) VALUES (%s, %s, %s)", (data, tipo, valor))
-                curs.commit()
+                conn.commit()
 
         return jsonify({"status": "ok"})
 
