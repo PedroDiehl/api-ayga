@@ -50,9 +50,9 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 Diferentes filtros para o método GET
 
 - Filtro por data - ✔️
-- Filtro por valor - ❌
+- Filtro por valor - ✔️
 - Filtro por intervalo de datas - ✔️
-- Filtro por intervalo de valor - ❌
+- Filtro por intervalo de valores - ❌
 - Filtro por tipo do sinal do dispositivo - ✔️
 - Filtro por tipo do sinal e intervalo de datas - ✔️
 

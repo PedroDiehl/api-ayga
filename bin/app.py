@@ -113,7 +113,34 @@ class GetSavedDataByType(Resource):
 
 class GetSavedDataByValue(Resource):
     '''
+    Utilizada para retornar os dados salvos no banco de dados com filtros
+    Método GET
+
+    Recebe como argumento o valor do sinal que terá seus dados retornados
+    Retorna .json
     '''
+
+    def get(self, valor):
+
+        if conn := connect_db():
+            curs = conn.cursor()
+        else:
+            return jsonify({"error": "Não foi possível conectar ao banco de dados"})
+
+        signals = []
+        for tipo in selecionar_tipos(curs):
+            # Seleciona data e valor onde o tipo é igual ao tipo atual
+            curs.execute("SELECT date, value FROM signals WHERE type = %s AND value = %s", (tipo, valor))
+            data = curs.fetchall()
+
+            # Cria a lista de logs através de list compreenshion
+            logs = [{"date": date, "value": value} for date, value in data]
+
+            # Cria o dicionário de tipo de sinal e registros
+            formato_json_sinais = {"UUID": valor, "logs": logs}
+            signals.append(formato_json_sinais)
+
+        return jsonify(create_json(signals))
 
 class GetSavedDataByDate(Resource):
     '''
@@ -160,7 +187,7 @@ class GetSavedDataByDateInterval(Resource):
     Utilizada para retornar os dados salvos no banco de dados com filtros
     Método GET
 
-    Recebe como argumentos o tipo do sinal e o intervalo de datas
+    Recebe como argumentos o intervalo de datas
     Retorna .json
     '''
 
@@ -271,6 +298,7 @@ class PostData(Resource):
 api.add_resource(PostData, "/post_data")
 api.add_resource(GetSavedData, "/get_saved_data")
 api.add_resource(GetSavedDataByType, "/get_saved_data_by_type/<string:tipo>")
+api.add_resource(GetSavedDataByValue, "/get_saved_data_by_value/<int:valor>")
 api.add_resource(GetSavedDataByDate, "/get_saved_data_by_date/<string:data_busca>")
 api.add_resource(GetSavedDataByDateInterval, "/get_saved_data_by_date_interval/<string:data_inicio>/<string:data_fim>")
 api.add_resource(GetSavedDataByType_DateInterval, "/get_saved_data_by_type_date_interval/<string:tipo>/<string:data_inicio>/<string:data_fim>")
