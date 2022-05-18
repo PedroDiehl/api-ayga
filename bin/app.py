@@ -8,10 +8,13 @@ Candidato: Pedro Henrique Diehl
 import json
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, request, jsonify
-from flask_restful import Api, abort, Resource, reqparse
+from flask_restful import Api, Resource
 
 app = Flask(__name__)
 api = Api(app)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///B66db.sqlite"
+db = SQLAlchemy(app)
+db.create_all()
 
 class GetSavedData(Resource):
     '''

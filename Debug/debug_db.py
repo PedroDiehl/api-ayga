@@ -21,10 +21,16 @@ def create_db():
     # Column 3: type
     # Column 4: value
 
-    c.execute("CREATE TABLE signals (id INTEGER PRIMARY KEY, date TEXT, type TEXT, value TEXT)")
+    c.execute('''CREATE TABLE signals 
+                (id INTEGER PRIMARY KEY, 
+                date TIMESTAMP, 
+                type TEXT, 
+                value TEXT)'''
+                )
 
     conn.commit()
-    conn.close()
+
+    print("Banco de dados criado com sucesso!\n")
 
     return
 
