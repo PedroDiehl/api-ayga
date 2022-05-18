@@ -2,9 +2,10 @@
 Módulo utilizado para debugar o banco de dados e suas querys
 '''
 
-from datetime import date
+
 import json
 import sqlite3
+from flask import jsonify
 
 JSON_FILE = "example_json.json"
 DB_FILE = "debug_B66db.db"
@@ -83,6 +84,7 @@ def test_json_data():
 
     print(format_json)
     print(json.dumps(format_json, indent=4))
+    print(jsonify(format_json))
 
     return
 

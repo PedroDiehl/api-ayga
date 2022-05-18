@@ -12,8 +12,8 @@ logging.basicConfig(filename='debug_api.log', encoding='utf-8',
                     level=logging.DEBUG
                     )
 
-#BASE = "http://127.0.0.1:5000/"
-BASE = "https://ayga-api.herokuapp.com/"
+BASE = "http://127.0.0.1:5000/"
+#BASE = "https://ayga-api.herokuapp.com/"
 
 
 def log_respostas(metodo, objetivo, resposta):

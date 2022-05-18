@@ -13,7 +13,7 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 api = Api(app)
 
-conn = sqlite3.connect("B66db.db")
+conn = sqlite3.connect("B66db.db", check_same_thread=False)
 curs = conn.cursor()
 
 class GetSavedData(Resource):
@@ -83,4 +83,4 @@ api.add_resource(GetSavedData, "/get_saved_data")
 api.add_resource(PostData, "/post_data")
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
