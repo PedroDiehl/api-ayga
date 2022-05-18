@@ -28,6 +28,13 @@ def connect_db():
 
     return conn
 
+def create_json(signals):
+    '''
+    Função para criar o json a ser retornado
+    '''
+
+    return {"deviceUUID": "00000B66", "signals": signals}
+
 def selecionar_tipos(curs):
     '''
     Função para selecionar os tipos de sinais
@@ -48,13 +55,6 @@ def create_json_sinais(data, tipo):
 
     # Cria o dicionário de tipo de sinal e registros
     return {"UUID": tipo, "logs": logs}
-
-def create_json(signals):
-    '''
-    Função para criar o json a ser retornado
-    '''
-
-    return {"deviceUUID": "00000B66", "signals": signals}
 
 class GetSavedData(Resource):
     '''
@@ -333,7 +333,6 @@ api.add_resource(GetSavedDataBygValue, "/get_saved_data_by_gvalue/<int:valor>")
 api.add_resource(GetSavedDataByDate, "/get_saved_data_by_date/<string:data_busca>")
 api.add_resource(GetSavedDataByDateInterval, "/get_saved_data_by_date_interval/<string:data_inicio>/<string:data_fim>")
 api.add_resource(GetSavedDataByType_DateInterval, "/get_saved_data_by_type_date_interval/<string:tipo>/<string:data_inicio>/<string:data_fim>")
-
 
 if __name__ == "__main__":
     app.run(debug=False)
