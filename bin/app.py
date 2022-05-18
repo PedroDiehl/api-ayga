@@ -48,7 +48,7 @@ class GetSavedData(Resource):
         formato_json = {"deviceUUID": "00000B66",
                         "signals": signals}
 
-        return json.dumps(formato_json, indent=4) 
+        return formato_json
 
 class PostData(Resource):
     '''
