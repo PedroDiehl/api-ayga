@@ -16,9 +16,6 @@ load_dotenv()
 app = Flask(__name__)
 api = Api(app)
 
-conn = psycopg2.connect(os.getenv("HEROKU_DB_URL"))
-curs = conn.cursor()
-
 class GetSavedData(Resource):
     '''
     Utilizada para retornar todos os dados salvos no banco de dados
@@ -29,6 +26,7 @@ class GetSavedData(Resource):
 
     def get(self):
 
+        conn = psycopg2.connect(os.getenv("HEROKU_DB_URL"))
         curs = conn.cursor()
 
         curs.execute("SELECT DISTINCT type FROM signals")
@@ -66,6 +64,7 @@ class PostData(Resource):
 
     def post(self):
 
+        conn = psycopg2.connect(os.getenv("HEROKU_DB_URL"))
         curs = conn.cursor()
 
         # Recebe os dados e faz a leitura
