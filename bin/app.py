@@ -7,14 +7,22 @@ Candidato: Pedro Henrique Diehl
 
 import os
 import psycopg2
-from dotenv import load_dotenv
 from flask_restful import Api, Resource
 from flask import Flask, request, jsonify
 
-load_dotenv()
 
 app = Flask(__name__)
 api = Api(app)
+
+def connect_db():
+    '''
+    Função para conectar ao banco de dados.
+    '''
+
+    try:
+        return psycopg2.connect(os.environ.get('DATABASE_URL'))
+    except Exception as e:
+        print(e)
 
 class GetSavedData(Resource):
     '''
@@ -91,4 +99,5 @@ api.add_resource(GetSavedData, "/get_saved_data")
 api.add_resource(PostData, "/post_data")
 
 if __name__ == "__main__":
+    connect_db()
     app.run(debug=False)
