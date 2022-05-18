@@ -84,18 +84,25 @@ class GetSavedDataByType(Resource):
         else:
             return jsonify({"error": "Não foi possível conectar ao banco de dados"})
 
-        # Seleciona data e valor onde o tipo é igual ao tipo atual
-        curs.execute("SELECT date, value FROM signals WHERE type = %s", (tipo,))
-        data = curs.fetchall()
+        curs.execute("SELECT DISTINCT type FROM signals")
+        tipos = curs.fetchall()
 
-        # Cria a lista de logs através de list compreenshion
-        logs = [{"date": date, "value": value} for date, value in data]
+        if tipo in tipos:
+            # Seleciona data e valor onde o tipo é igual ao tipo atual
+            curs.execute("SELECT date, value FROM signals WHERE type = %s", (tipo,))
+            data = curs.fetchall()
 
-        # Cria o dicionário de tipo de sinal e registros
-        formato_json_sinais = {"UUID": tipo, 
-                                "logs": logs}
+            # Cria a lista de logs através de list compreenshion
+            logs = [{"date": date, "value": value} for date, value in data]
 
-        return jsonify(formato_json_sinais)
+            # Cria o dicionário de tipo de sinal e registros
+            formato_json_sinais = {"UUID": tipo, 
+                                    "logs": logs}
+
+            return jsonify(formato_json_sinais)
+
+        else:
+            return jsonify({"error": "Tipo de sinal não encontrado"})
 
 class PostData(Resource):
     '''
